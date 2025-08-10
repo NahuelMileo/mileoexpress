@@ -3,8 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, MessageCircle, X } from "lucide-react";
-import Image from "next/image";
+import { Menu, MessageCircle } from "lucide-react";
 import Link from "next/link";
 
 export default function Nav() {
