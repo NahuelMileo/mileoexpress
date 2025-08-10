@@ -1,3 +1,4 @@
+"use client";
 import { Phone, MessageCircle, Mail, MapPin } from "lucide-react";
 import { Button } from "./ui/button";
 
@@ -84,6 +85,7 @@ export default function Page() {
                   <Button
                     size="lg"
                     className="w-full bg-green-600 py-4 text-base text-white hover:bg-green-700 lg:py-6 lg:text-lg"
+                    onClick={() => window.open("https://wa.me/+555391338841")}
                   >
                     <MessageCircle className="mr-2 h-5 w-5 flex-shrink-0 lg:mr-3 lg:h-6 lg:w-6" />
                     <span className="truncate">

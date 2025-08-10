@@ -29,7 +29,7 @@ export default function NuestraHistoria() {
     {
       titulo: "Expansión y diversificación",
       año: "2014",
-      descripcion: `Incorporamos un Scania 112 HW 360 hp 4x2 año 1991, equipado con una carreta Canguru con assoalho de chapa año 2007. En 2014, adquirimos una caçamba 0 km para operación de transporte de saibro en un parque eólico. También incorporamos un International 9800 año 2001, con 405 hp y configuración 6x4, reforzando nuestro compromiso con soluciones versátiles.`,
+      descripcion: `Incorporamos un Scania 112 HW 360 hp 4x2 año 1991, equipado con una carreta Canguru con assoalho de chapa año 2007. En 2014, adquirimos una caçamba 0 km para operación de transporte de saibro en un parque eólico.`,
       imagen: scania112,
     },
     {

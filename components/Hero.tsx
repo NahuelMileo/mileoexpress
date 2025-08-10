@@ -74,6 +74,7 @@ export default function Page() {
               width={500}
               height={500}
               className="rounded-2xl shadow-2xl"
+              priority
             />
             <div className="absolute -bottom-6 -left-6 rounded-xl bg-white p-4 shadow-lg">
               <div className="flex items-center space-x-3">

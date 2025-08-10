@@ -2,7 +2,14 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 import { Menu, MessageCircle } from "lucide-react";
 import Link from "next/link";
 
@@ -20,6 +27,10 @@ export default function Nav() {
   const handleNavClick = () => {
     setIsOpen(false);
   };
+
+  function abrirWhatsapp(): void {
+    window.open("https://wa.me/+555391338841");
+  }
 
   return (
     <header className="fixed top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur-sm">
@@ -44,7 +55,10 @@ export default function Nav() {
 
         {/* Desktop WhatsApp Button */}
         <div className="hidden md:block">
-          <Button className="bg-green-600 text-white hover:bg-green-700">
+          <Button
+            className="cursor-pointer bg-green-600 text-white hover:bg-green-700"
+            onClick={abrirWhatsapp}
+          >
             <MessageCircle className="mr-2 h-4 w-4" />
             WhatsApp
           </Button>
@@ -59,20 +73,19 @@ export default function Nav() {
                 <span className="sr-only">Abrir menú</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
+            <SheetContent
+              side="right"
+              className="w-[300px] sm:w-[400px]"
+              aria-describedby="sheet-content"
+            >
+              <SheetHeader>
+                <SheetTitle>Mileo Express</SheetTitle>
+                <SheetDescription>
+                  Transporte nacional e internacional de cargas
+                </SheetDescription>
+              </SheetHeader>
               <div className="flex h-full flex-col">
                 {/* Header del Sheet */}
-                <div className="flex items-center justify-between border-b border-gray-200 px-4 py-3">
-                  <p className="font-semibold text-red-800">Mileo Express</p>
-
-                  <button
-                    onClick={() => setIsOpen(false)}
-                    className="rounded-full bg-gray-100 p-2 text-gray-500 hover:bg-gray-200 hover:text-gray-700"
-                    aria-label="Cerrar menú"
-                  >
-                    {/* <X className="h-6 w-6" /> */}
-                  </button>
-                </div>
 
                 {/* Navigation Links */}
                 <nav className="flex-1 px-4 py-6">
@@ -95,10 +108,10 @@ export default function Nav() {
                   <Button
                     className="w-full bg-green-600 text-white hover:bg-green-700"
                     size="lg"
-                    onClick={handleNavClick}
+                    onClick={abrirWhatsapp}
                   >
                     <MessageCircle className="mr-2 h-4 w-4" />
-                    Contactar por WhatsApp
+                    WhatsApp
                   </Button>
 
                   <div className="space-y-2 text-center"></div>
