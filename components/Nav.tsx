@@ -2,125 +2,109 @@
 
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
-import { Menu, MessageCircle } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { href: "#inicio", label: "Inicio" },
-    { href: "#nosotros", label: "Nosotros" },
-    { href: "#servicios", label: "Servicios" },
-    { href: "#flota", label: "Nuestra Flota" },
-    { href: "#contacto", label: "Contacto" },
+    { href: "#inicio", label: "Início" },
+    { href: "#nosotros", label: "Sobre Nós" },
+    { href: "#servicios", label: "Serviços" },
+    { href: "#flota", label: "Nossa Frota" },
+    { href: "#contacto", label: "Contato" },
   ];
 
-  const handleNavClick = () => {
-    setIsOpen(false);
-  };
-
-  function abrirWhatsapp(): void {
-    window.open("https://wa.me/+555391338841");
-  }
-
   return (
-    <header className="fixed top-0 z-50 w-full border-b border-gray-200 bg-white/95 backdrop-blur-sm">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4">
-        {/* Logo */}
-        <div className="flex items-center space-x-2">
-          <p className="text-lg font-semibold text-red-800">Mileo Express</p>
-        </div>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden items-center space-x-8 md:flex">
-          {navItems.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="font-medium text-gray-700 transition-colors hover:text-red-900"
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-
-        {/* Desktop WhatsApp Button */}
-        <div className="hidden md:block">
-          <Button
-            className="cursor-pointer bg-green-600 text-white hover:bg-green-700"
-            onClick={abrirWhatsapp}
+    <motion.nav
+      className="fixed top-0 right-0 left-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur-sm"
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="container mx-auto px-4">
+        <div className="flex h-16 items-center justify-between">
+          {/* Logo */}
+          <motion.div
+            whileHover={{ scale: 1.05 }}
+            transition={{ type: "spring", stiffness: 300, damping: 20 }}
           >
-            <MessageCircle className="mr-2 h-4 w-4" />
-            WhatsApp
-          </Button>
-        </div>
+            <p className="font-semibold text-red-800 uppercase">
+              Mileo Express
+            </p>
+          </motion.div>
 
-        {/* Mobile Menu Button */}
-        <div className="md:hidden">
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-gray-700">
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Abrir menú</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent
-              side="right"
-              className="w-[300px] sm:w-[400px]"
-              aria-describedby="sheet-content"
+          {/* Desktop Navigation */}
+          <div className="hidden items-center space-x-8 md:flex">
+            {navItems.map((item, index) => (
+              <motion.div
+                key={item.href}
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
+                <Link
+                  href={item.href}
+                  className="group relative font-medium text-gray-700 transition-colors hover:text-red-900"
+                >
+                  {item.label}
+                  <motion.div className="absolute -bottom-1 left-0 h-0.5 w-0 bg-red-900 transition-all duration-300 group-hover:w-full" />
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Mobile menu button */}
+          <motion.div className="md:hidden" whileTap={{ scale: 0.95 }}>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label="Toggle menu"
             >
-              <SheetHeader>
-                <SheetTitle>Mileo Express</SheetTitle>
-                <SheetDescription>
-                  Transporte nacional e internacional de cargas
-                </SheetDescription>
-              </SheetHeader>
-              <div className="flex h-full flex-col">
-                {/* Header del Sheet */}
-
-                {/* Navigation Links */}
-                <nav className="flex-1 px-4 py-6">
-                  <div className="space-y-1">
-                    {navItems.map((item) => (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        onClick={handleNavClick}
-                        className="block rounded-lg px-4 py-3 text-lg font-medium text-gray-700 transition-colors hover:bg-red-50 hover:text-red-900"
-                      >
-                        {item.label}
-                      </Link>
-                    ))}
-                  </div>
-                </nav>
-
-                {/* Footer del Sheet */}
-                <div className="space-y-4 border-t border-gray-200 px-4 pt-6">
-                  <Button
-                    className="w-full bg-green-600 text-white hover:bg-green-700"
-                    size="lg"
-                    onClick={abrirWhatsapp}
-                  >
-                    <MessageCircle className="mr-2 h-4 w-4" />
-                    WhatsApp
-                  </Button>
-
-                  <div className="space-y-2 text-center"></div>
-                </div>
-              </div>
-            </SheetContent>
-          </Sheet>
+              {isOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
+            </Button>
+          </motion.div>
         </div>
+
+        {/* Mobile Navigation */}
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              className="md:hidden"
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <div className="space-y-2 border-t border-gray-200 py-4">
+                {navItems.map((item, index) => (
+                  <motion.div
+                    key={item.href}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.05 }}
+                  >
+                    <Link
+                      href={item.href}
+                      className="block rounded-lg px-4 py-2 text-gray-700 transition-colors hover:bg-gray-50 hover:text-red-900"
+                      onClick={() => setIsOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </header>
+    </motion.nav>
   );
 }
