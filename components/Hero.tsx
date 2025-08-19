@@ -9,8 +9,11 @@ import { motion } from "framer-motion";
 export default function Page() {
   const fadeInUp = {
     initial: { opacity: 0, y: 60 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, ease: "easeOut" },
+    animate: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" as const },
+    },
   };
 
   const staggerContainer = {
@@ -52,11 +55,11 @@ export default function Page() {
               >
                 Conectamos{" "}
                 <span className="bg-gradient-to-b from-red-600 to-red-800 bg-clip-text text-transparent">
-                  Montevidéu
+                  Brasil
                 </span>{" "}
                 a{" "}
                 <span className="bg-gradient-to-b from-red-600 to-red-800 bg-clip-text text-transparent">
-                  São Paulo
+                  Uruguai
                 </span>
               </motion.h1>
               <motion.p
