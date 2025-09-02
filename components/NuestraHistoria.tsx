@@ -9,7 +9,11 @@ import international from "../public/international.jpg";
 import volvo380 from "../public/ikg.jpg";
 import volvo480 from "../public/miq.jpg";
 import iveco from "../public/iwy.jpg";
+import randonN from "../public/randonN.jpg";
+import palmeira from "../public/palmeira.jpg";
 import { motion } from "framer-motion";
+import { desc } from "framer-motion/client";
+import { describe } from "node:test";
 
 export default function NuestraHistoria() {
   const timeline = [
@@ -17,51 +21,65 @@ export default function NuestraHistoria() {
       titulo: "Os primeiros passos",
       año: "2000",
       descripcion:
-        "Tudo começou com um Scania 111 ano 1978, acoplado a uma carreta Randon graneleira. Com muita determinação e trabalho árduo, demos os primeiros passos no transporte de cargas.",
+        "Nossa jornada começou há 25 anos, com um clássico Scania 111, ano 1978, acoplado a uma carreta Randon graneleira de 1989. Com determinação, dedicação e muito trabalho, demos os primeiros passos no transporte de cargas. Hoje, com um quarto de século de experiência, a Mileo Express é referência em transporte internacional, conectando Brasil e Uruguai com a mesma paixão e responsabilidade que nos movem desde o primeiro quilômetro.",
       imagen: scania111,
     },
     {
       titulo: "O primeiro upgrade",
       año: "2005",
       descripcion:
-        "Com o crescimento da empresa, vendemos o Scania 111 e adquirimos um Mercedes Benz 1935 ano 1993, equipado com uma carreta de 14 metros. Este passo aumentou nossa capacidade e confiabilidade do serviço, sempre focados na linha São Paulo.",
+        "Com o crescimento da empresa, nos despedimos do Scania 111 e investimos em um Mercedes-Benz 1935, ano 1993, acoplado a uma carreta canguru de 14 metros. Essa aquisição representou um marco na nossa trajetória, aumentando significativamente a cubagem e a capacidade de peso transportado. Sempre com foco na rota São Paulo, consolidamos um serviço ainda mais confiável e eficiente, fortalecendo nossa presença no setor de transporte de cargas.",
       imagen: mercedes1935,
     },
     {
       titulo: "Expansão e diversificação",
       año: "2014",
       descripcion:
-        "Incorporamos um Scania 112 HW 360 hp 4x2 ano 1991, equipado com uma carreta Canguru com assoalho de chapa ano 2007. Em 2014, adquirimos uma caçamba 0 km para operação de transporte de saibro em um parque eólico.",
+        "Dando continuidade ao crescimento da Mileo Express, incorporamos um Scania 112 HW 360 hp 4x2, ano 1991, equipado com uma carreta canguru com assoalho de chapa, ano 2007. Em 2014, ampliamos ainda mais nossa atuação com a aquisição de uma caçamba 0 km, destinada ao transporte de saibro para operações em um parque eólico. Até 2016, consolidamos uma frota versátil e preparada para atender diferentes demandas logísticas, reforçando nosso compromisso com eficiência e inovação no transporte de cargas.",
       imagen: scania112,
     },
     {
       titulo: "Fortalecimento com International",
       año: "2016",
       descripcion:
-        "Para atender novas demandas de carga pesada e rotas mais longas, somamos à nossa frota um International 9800 de 405 hp, configuração 6x4, com carreta graneleira. Sua potência e robustez nos permitiram otimizar operações em terrenos exigentes e garantir entregas pontuais mesmo em trajetos internacionais. Este passo consolidou a presença da Mileo Express no transporte de grande porte.",
+        "Para atender novas demandas de carga pesada e rotas de longa distância, reforçamos nossa frota com um poderoso International 9800, 405 hp, configuração 6x4, equipado com caçamba. Sua potência e robustez elevaram nosso padrão operacional, permitindo otimizar entregas em terrenos desafiadores e garantir pontualidade até mesmo em trajetos internacionais. Com este investimento, a Mileo Express consolidou sua presença no transporte de grande porte, oferecendo soluções logísticas cada vez mais completas e eficientes.",
       imagen: international,
     },
     {
       titulo: "Chegada da Volvo e modernização",
       año: "2018",
       descripcion:
-        "Demos um importante passo tecnológico com a aquisição do nosso primeiro Volvo FH 380, 380 cv, configuração 6x2. Junto com ele, incorporamos nosso primeiro sider Randon ano 2008, com capacidade para 30 pallets. Essa modernização representou uma nova fase na Mileo Express.",
+        "Demos um grande salto tecnológico com a chegada do nosso primeiro Volvo FH 380cv, configuração 6x2. Junto a ele, incorporamos também nosso primeiro Sider Randon, ano 2008, com capacidade para 30 pallets. Essa renovação de frota marcou uma nova era para a Mileo Express, trazendo mais eficiência, segurança e agilidade para o transporte de cargas, e consolidando nosso compromisso em oferecer soluções logísticas modernas e confiáveis.",
       imagen: volvo380,
     },
     {
       titulo: "Expansão da frota",
       año: "2021",
       descripcion:
-        "Ampliamos nossa frota com a aquisição de um Volvo FH 480, chegando a operar com dois caminhões simultaneamente. Durante a pandemia, adquirimos outro Volvo FH 480 6x2, expandindo nossas rotas para Argentina, Uruguai e Brasil em colaboração com outras empresas.",
+        "Ampliamos nossa frota com a aquisição de um Volvo FH 480, passando a operar com dois caminhões simultaneamente e elevando nossa capacidade de atendimento. Durante a pandemia, reforçamos ainda mais nossas operações com a chegada de um segundo Volvo FH 480 6x2, o que possibilitou expandir nossas rotas para Argentina, Uruguai e Brasil em parceria com outras empresas do setor. Esse período marcou uma fase estratégica de crescimento e colaboração, consolidando a Mileo Express como uma transportadora preparada para enfrentar desafios e atender clientes em todo o Mercosul.",
       imagen: volvo480,
     },
     {
-      titulo: "Flota atual",
+      titulo: "Reforço estratégico com novo Sider Randon",
       año: "2024",
+      descripcion:
+        "Em outubro de 2024, recebemos nosso segundo Sider Randon, ano 2014, reforçando a frota com mais capacidade e versatilidade para atender às crescentes demandas logísticas. Essa aquisição faz parte do compromisso da Mileo Express em manter uma estrutura moderna e eficiente para o transporte de cargas internacionais.",
+      imagen: randonN,
+    },
+    {
+      titulo: "Incorporação do Iveco Stralis 440",
+      año: "2024",
+      descripcion:
+        "Em Decembro, completamos nossa frota com o Iveco Stralis 440 6x2, ano 2014. Este caminhão moderno reforça nosso compromisso com a excelência e eficiência no transporte de cargas internacionais.",
+      imagen: iveco,
+    },
+    {
+      titulo: "Expansão com Sider Palmeira",
+      año: "2025",
       destacado: true,
       descripcion:
-        "Completamos nossa frota atual com um Iveco Stralis 440 6x2 ano 2014, com capacidade para 28 pallets, e um sider Palmeira de 30 pallets ano 2019. Caminhões modernos que reforçam nosso compromisso com a excelência.",
-      imagen: iveco,
+        "Em maio de 2025, reforçamos ainda mais nossa estrutura com a chegada de um Sider Palmeira com capacidade para 30 pallets. Essa aquisição representa mais um passo na expansão e modernização da frota Mileo Express, garantindo maior eficiência, agilidade e segurança no transporte internacional de cargas.",
+      imagen: palmeira,
     },
   ];
   return (
