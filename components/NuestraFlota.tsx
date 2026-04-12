@@ -6,6 +6,7 @@ import Image from "next/image";
 import miq from "@/public/miq.jpg";
 import ikg from "@/public/ikg.jpg";
 import iwy from "@/public/iwy.jpg";
+import iux from "@/public/iux.jpg";
 import { motion } from "framer-motion";
 
 const fleet = [
@@ -29,13 +30,22 @@ const fleet = [
   },
   {
     image: iwy.src,
-    alt: "Iveco Stralis 440",
+    alt: "Iveco Stralis 440 Hi-Way",
     brand: "Iveco",
-    title: "Iveco Stralis 440",
+    title: "Iveco Stralis 440 Hi-Way",
     description:
       "Tecnologia italiana de ponta com capacidade para 28 pallets e sider Palmeira de 30 pallets.",
     specs: ["440 HP", "6x2", "28-30 pallets"],
   },
+  {
+  image: iux.src,
+  alt: "Iveco Stralis 440 Hi-Way",
+  brand: "Iveco",
+  title: "Iveco Stralis 440 Hi-Way",
+  description:
+    "Caminhão moderno e eficiente, incorporado à frota em 2026, preparado para operações internacionais com alto desempenho e confiabilidade.",
+  specs: ["440 HP", "6x2", "Até 30 pallets"],
+},
 ];
 
 export default function Page() {
@@ -93,15 +103,15 @@ export default function Page() {
                 <Card className="overflow-hidden border-0 shadow-lg transition-shadow hover:shadow-xl">
                   <div className="relative h-48 overflow-hidden">
                     <motion.div
+                      className="relative h-full w-full"
                       whileHover={{ scale: 1.1 }}
                       transition={{ duration: 0.3 }}
                     >
                       <Image
                         src={truck.image || "/placeholder.svg"}
                         alt={truck.brand}
-                        width={400}
-                        height={200}
-                        className="h-full w-full object-cover"
+                        fill
+                        className="object-cover object-center"
                       />
                     </motion.div>
                     <div className="absolute top-4 left-4">

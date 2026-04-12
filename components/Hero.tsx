@@ -26,8 +26,8 @@ export default function Page() {
 
   const stats = [
     { valor: "25", descripcion: "Anos de experiência" },
-    { valor: "3", descripcion: "Caminhões na frota" },
-    { valor: "100%", descripcion: "Cargas seguras" },
+    { valor: "4", descripcion: "Caminhões na frota" },
+    { valor: "+50.000", descripcion: "Toneladas transportadas" },
   ];
 
   return (

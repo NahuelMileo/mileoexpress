@@ -12,8 +12,7 @@ import iveco from "../public/iwy.jpg";
 import randonN from "../public/randonN.jpg";
 import palmeira from "../public/palmeira.jpg";
 import { motion } from "framer-motion";
-import { desc } from "framer-motion/client";
-import { describe } from "node:test";
+import iux from "../public/iux.jpg";
 
 export default function NuestraHistoria() {
   const timeline = [
@@ -76,11 +75,18 @@ export default function NuestraHistoria() {
     {
       titulo: "Expansão com Sider Palmeira",
       año: "2025",
-      destacado: true,
       descripcion:
         "Em maio de 2025, reforçamos ainda mais nossa estrutura com a chegada de um Sider Palmeira com capacidade para 30 pallets. Essa aquisição representa mais um passo na expansão e modernização da frota Mileo Express, garantindo maior eficiência, agilidade e segurança no transporte internacional de cargas.",
       imagen: palmeira,
     },
+    {
+  titulo: "Novo reforço na frota",
+  año: "2026",
+  destacado: true,
+  descripcion:
+    "Em março de 2026, demos mais um passo importante na expansão da Mileo Express com a aquisição de um Iveco Stralis 440 Hi-Way 6x2, ano 2014. Este caminhão moderno e eficiente reforça nossa capacidade operacional, garantindo maior desempenho nas rotas internacionais entre Brasil e Uruguai. Seguimos investindo em uma frota cada vez mais robusta, confiável e preparada para atender às demandas do mercado com excelência.",
+  imagen: iux,
+},
   ];
   return (
     <section id="nosotros" className="bg-white py-20">

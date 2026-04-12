@@ -6,6 +6,7 @@ import Servicios from "@/components/Servicios";
 import NuestraFlota from "@/components/NuestraFlota";
 import Contacto from "@/components/Contacto";
 import Footer from "@/components/Footer";
+import GaleriaCarrusel from "@/components/GaleriaCarrusel";
 
 export default function MileoExpressLanding() {
   return (
@@ -16,6 +17,7 @@ export default function MileoExpressLanding() {
       <NuestraHistoria />
       <Servicios />
       <NuestraFlota />
+      <GaleriaCarrusel/>
       <Contacto />
       <Footer />
     </div>
