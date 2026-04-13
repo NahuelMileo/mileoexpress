@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowRight, Package, Clock, Shield } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import hero from "@/public/hero.jpg";
@@ -25,10 +25,10 @@ export default function Hero() {
     },
   };
 
-  const features = [
-    { icon: Package, text: "Cargas Seguras" },
-    { icon: Clock, text: "Entregas Pontuais" },
-    { icon: Shield, text: "25+ Anos" },
+  const stats = [
+    { number: "25+", label: "Anos de Experiencia" },
+    { number: "4", label: "Caminhoes na Frota" },
+    { number: "+50k", label: "Toneladas Transportadas" },
   ];
 
   return (
@@ -50,17 +50,18 @@ export default function Hero() {
       <div className="relative z-10 flex min-h-screen items-center">
         <div className="container mx-auto px-6 lg:px-12">
           <motion.div
-            className="max-w-3xl space-y-8"
+            className="max-w-3xl space-y-6"
             initial="initial"
             animate="animate"
             variants={staggerContainer}
           >
-            {/* Badge */}
-            <motion.div variants={fadeInUp}>
-              <span className="inline-block border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium tracking-wider text-white/90 uppercase backdrop-blur-sm">
-                Transporte Internacional Brasil - Uruguai
-              </span>
-            </motion.div>
+            {/* Small Text Above Heading */}
+            <motion.p
+              className="text-sm font-medium tracking-widest text-white/60 uppercase"
+              variants={fadeInUp}
+            >
+              Transporte Internacional Brasil - Uruguai
+            </motion.p>
 
             {/* Main Heading */}
             <motion.h1
@@ -80,15 +81,15 @@ export default function Hero() {
               seguro, pontual e confiavel para cargas de todos os tipos.
             </motion.p>
 
-            {/* CTA Buttons */}
+            {/* CTA Buttons - Lower position with full round */}
             <motion.div
-              className="flex flex-col gap-4 pt-4 sm:flex-row"
+              className="flex flex-col gap-4 pt-8 sm:flex-row"
               variants={fadeInUp}
             >
               <a href="#contacto">
                 <Button
                   size="lg"
-                  className="group bg-white px-8 py-6 text-base font-medium text-black transition-all hover:bg-white/90"
+                  className="group rounded-full bg-white px-8 py-6 text-base font-medium text-black transition-all hover:bg-white/90"
                 >
                   Solicitar Orcamento
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -98,26 +99,30 @@ export default function Hero() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white/30 bg-transparent px-8 py-6 text-base font-medium text-white transition-all hover:border-white hover:bg-white/10"
+                  className="rounded-full border-white/30 bg-transparent px-8 py-6 text-base font-medium text-white transition-all hover:border-white hover:bg-white/10"
                 >
                   Conheca Nossa Historia
                 </Button>
               </a>
             </motion.div>
 
-            {/* Feature Pills */}
+            {/* Divider */}
+            <motion.div variants={fadeInUp} className="pt-8">
+              <hr className="border-white/20" />
+            </motion.div>
+
+            {/* Stats Section */}
             <motion.div
-              className="flex flex-wrap gap-6 pt-8"
+              className="flex flex-wrap gap-12 pt-6"
               variants={fadeInUp}
             >
-              {features.map((feature, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-3 text-white/60"
-                >
-                  <feature.icon className="h-5 w-5" />
-                  <span className="text-sm font-medium tracking-wide">
-                    {feature.text}
+              {stats.map((stat, index) => (
+                <div key={index} className="flex flex-col">
+                  <span className="text-4xl font-bold text-white md:text-5xl">
+                    {stat.number}
+                  </span>
+                  <span className="mt-1 text-xs font-medium tracking-wide text-white/50 uppercase">
+                    {stat.label}
                   </span>
                 </div>
               ))}
