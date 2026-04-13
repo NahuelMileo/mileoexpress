@@ -1,5 +1,4 @@
 "use client";
-import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
 import Image from "next/image";
 
@@ -16,7 +15,7 @@ const fleet = [
     brand: "Volvo",
     title: "Volvo FH 480",
     description:
-      "Caminhão de alta gama com tecnologia avançada para transporte seguro e eficiente em rotas internacionais.",
+      "Caminhao de alta gama com tecnologia avancada para transporte seguro e eficiente em rotas internacionais.",
     specs: ["480 HP", "6x2", "GPS"],
   },
   {
@@ -25,8 +24,8 @@ const fleet = [
     brand: "Volvo",
     title: "Volvo FH 380",
     description:
-      "Segundo Volvo, este com 380 HP adquirido durante a pandemia, ampliando nossa capacidade operacional.",
-    specs: ["480 HP", "6x2", "GPS"],
+      "Segundo Volvo, com 380 HP, adquirido durante a pandemia, ampliando nossa capacidade operacional.",
+    specs: ["380 HP", "6x2", "GPS"],
   },
   {
     image: iwy.src,
@@ -38,23 +37,23 @@ const fleet = [
     specs: ["440 HP", "6x2", "28-30 pallets"],
   },
   {
-  image: iux.src,
-  alt: "Iveco Stralis 440 Hi-Way",
-  brand: "Iveco",
-  title: "Iveco Stralis 440 Hi-Way",
-  description:
-    "Caminhão moderno e eficiente, incorporado à frota em 2026, preparado para operações internacionais com alto desempenho e confiabilidade.",
-  specs: ["440 HP", "6x2", "Até 30 pallets"],
-},
+    image: iux.src,
+    alt: "Iveco Stralis 440 Hi-Way",
+    brand: "Iveco",
+    title: "Iveco Stralis 440 Hi-Way",
+    description:
+      "Caminhao moderno e eficiente, incorporado em 2026, preparado para operacoes internacionais com alto desempenho.",
+    specs: ["440 HP", "6x2", "Ate 30 pallets"],
+  },
 ];
 
-export default function Page() {
+export default function NuestraFlota() {
   const fadeInUp = {
-    initial: { opacity: 0, y: 60 },
+    initial: { opacity: 0, y: 40 },
     animate: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" as const },
+      transition: { duration: 0.5, ease: "easeOut" },
     },
   };
 
@@ -66,73 +65,76 @@ export default function Page() {
     },
   };
 
-  const scaleOnHover = {
-    whileHover: { scale: 1.05 },
-    transition: { type: "spring", stiffness: 300, damping: 20 },
-  };
-
   return (
-    <section id="flota" className="bg-white py-20">
-      <div className="container mx-auto px-4">
+    <section id="flota" className="bg-background py-24 lg:py-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* Header */}
         <motion.div
-          className="mb-16 text-center"
+          className="mb-20"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="mb-4 text-3xl font-bold text-gray-900 lg:text-4xl">
-            Nossa Frota Atual
+          <p className="mb-4 text-sm font-medium uppercase tracking-widest text-muted-foreground">
+            Nossa Frota
+          </p>
+          <h2 className="mb-6 max-w-2xl text-3xl font-semibold tracking-tight text-foreground lg:text-5xl">
+            Quatro caminhoes modernos e confiaveis
           </h2>
-          <p className="mx-auto max-w-3xl text-xl text-gray-600">
-            Três caminhões modernos e confiáveis que garantem o melhor serviço
-            no transporte internacional de cargas.
+          <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
+            Equipamentos de ultima geracao que garantem o melhor servico no
+            transporte internacional de cargas.
           </p>
         </motion.div>
 
+        {/* Fleet Grid */}
         <motion.div
-          className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-8 md:grid-cols-2"
           initial="initial"
           whileInView="animate"
           viewport={{ once: true }}
           variants={staggerContainer}
         >
           {fleet.map((truck, index) => (
-            <motion.div key={index} variants={fadeInUp}>
-              <motion.div variants={scaleOnHover}>
-                <Card className="overflow-hidden border-0 shadow-lg transition-shadow hover:shadow-xl">
-                  <div className="relative h-48 overflow-hidden">
-                    <motion.div
-                      className="relative h-full w-full"
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <Image
-                        src={truck.image || "/placeholder.svg"}
-                        alt={truck.brand}
-                        fill
-                        className="object-cover object-center"
-                      />
-                    </motion.div>
-                    <div className="absolute top-4 left-4">
-                      <Badge className="bg-red-900 text-white">
-                        {truck.brand}
-                      </Badge>
-                    </div>
-                  </div>
-                  <CardContent className="p-6">
-                    <h3 className="mb-2 text-xl font-semibold text-gray-900 lg:text-2xl">
+            <motion.div
+              key={index}
+              variants={fadeInUp}
+              className="group"
+            >
+              <div className="overflow-hidden rounded-lg border border-border bg-background transition-all duration-300 hover:border-foreground">
+                <div className="relative h-72 overflow-hidden">
+                  <Image
+                    src={truck.image}
+                    alt={truck.alt}
+                    fill
+                    className="object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <Badge className="bg-foreground text-background">
                       {truck.brand}
-                    </h3>
-                    <p className="mb-4 text-gray-600">{truck.description}</p>
-                    <div className="flex items-center space-x-4 text-sm text-gray-500">
-                      {truck.specs.map((spec, specIndex) => (
-                        <span key={specIndex}>• {spec}</span>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
+                    </Badge>
+                  </div>
+                </div>
+                <div className="p-6">
+                  <h3 className="mb-2 text-xl font-semibold text-foreground">
+                    {truck.title}
+                  </h3>
+                  <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
+                    {truck.description}
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {truck.specs.map((spec, specIndex) => (
+                      <span
+                        key={specIndex}
+                        className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground"
+                      >
+                        {spec}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </motion.div>
           ))}
         </motion.div>
