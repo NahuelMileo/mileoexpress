@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Mileo Express",
-  description: "Transporte nacional e internacional de cargas",
+  title: "Mileo Express - Transporte Internacional",
+  description: "Transporte nacional e internacional de cargas Brasil-Uruguai",
 };
 
 export default function RootLayout({
