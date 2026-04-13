@@ -38,9 +38,9 @@ const fleet = [
   },
   {
     image: iux.src,
-    alt: "Iveco Stralis 440 Hi-Way",
+    alt: "Iveco Stralis 400 Hi-Way",
     brand: "Iveco",
-    title: "Iveco Stralis 440 Hi-Way",
+    title: "Iveco Stralis 400 Hi-Way",
     description:
       "Caminhao moderno e eficiente, incorporado em 2026, preparado para operacoes internacionais com alto desempenho.",
     specs: ["440 HP", "6x2", "Ate 30 pallets"],
