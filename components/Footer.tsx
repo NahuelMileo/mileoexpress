@@ -2,96 +2,84 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-export default function Page() {
-  const fadeInUp = {
-    initial: { opacity: 0, y: 60 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, ease: "easeOut" },
-  };
-
-  const staggerContainer = {
-    animate: {
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
+export default function Footer() {
+  const links = [
+    { href: "#inicio", text: "Inicio" },
+    { href: "#nosotros", text: "Nossa Historia" },
+    { href: "#servicios", text: "Servicos" },
+    { href: "#flota", text: "Frota" },
+    { href: "#contacto", text: "Contato" },
+  ];
 
   const contacto = [
     { info: "+55 53 99133 8841" },
     { info: "mileojorge@gmail.com" },
-    { info: "Chuí, Uruguay" },
+    { info: "Chui, Uruguay" },
   ];
 
-  const links = [
-    { href: "#inicio", text: "Início" },
-    { href: "#nosotros", text: "Sobre Nós" },
-    { href: "#servicios", text: "Serviços" },
-    { href: "#flota", text: "Nossa Frota" },
-  ];
   return (
     <motion.footer
-      className="bg-neutral-900 py-12 text-white"
+      className="border-t border-border bg-background py-16"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true }}
       transition={{ duration: 0.6 }}
     >
-      <div className="container mx-auto px-4">
-        <motion.div
-          className="grid gap-8 md:grid-cols-3"
-          variants={staggerContainer}
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-        >
-          <motion.div variants={fadeInUp}>
-            <p className="font-semibold">Mileo Express</p>
-            <p className="mb-4 text-gray-400">
-              Transporte internacional confiable entre Montevideo y São Paulo.
-              Una empresa familiar con más de 15 años de experiencia.
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        <div className="grid gap-12 md:grid-cols-3">
+          {/* Brand */}
+          <div>
+            <Link href="#inicio">
+              <span className="text-xl font-semibold tracking-tight text-foreground">
+                Mileo Express
+              </span>
+            </Link>
+            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
+              Transporte internacional confiavel entre Brasil e Uruguai. Uma
+              empresa familiar com mais de 25 anos de experiencia.
             </p>
-          </motion.div>
-          <motion.div variants={fadeInUp}>
-            <h4 className="mb-4 text-lg font-semibold">Enlaces Rápidos</h4>
-            <div className="space-y-2">
+          </div>
+
+          {/* Links */}
+          <div>
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-widest text-foreground">
+              Navegacao
+            </h4>
+            <div className="space-y-3">
               {links.map((link, index) => (
-                <motion.div
+                <Link
                   key={index}
-                  whileHover={{ x: 5 }}
-                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  href={link.href}
+                  className="block text-sm text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  <Link
-                    href={link.href}
-                    className="block text-gray-400 transition-colors hover:text-white"
-                  >
-                    {link.text}
-                  </Link>
-                </motion.div>
+                  {link.text}
+                </Link>
               ))}
             </div>
-          </motion.div>
-          <motion.div variants={fadeInUp}>
-            <h4 className="mb-4 text-lg font-semibold">Contacto</h4>
-            <div className="space-y-2 text-gray-400">
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="mb-4 text-sm font-semibold uppercase tracking-widest text-foreground">
+              Contato
+            </h4>
+            <div className="space-y-3">
               {contacto.map((contact, index) => (
-                <p key={index}>{contact.info}</p>
+                <p key={index} className="text-sm text-muted-foreground">
+                  {contact.info}
+                </p>
               ))}
             </div>
-          </motion.div>
-        </motion.div>
-        <motion.div
-          className="mt-8 border-t border-gray-800 pt-8 text-center text-gray-400"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          <p>
-            &copy; {new Date().getFullYear()} Mileo Express. Todos os direitos
+          </div>
+        </div>
+
+        {/* Bottom */}
+        <div className="mt-12 border-t border-border pt-8">
+          <p className="text-center text-sm text-muted-foreground">
+            {new Date().getFullYear()} Mileo Express. Todos os direitos
             reservados.
           </p>
-        </motion.div>
+        </div>
       </div>
     </motion.footer>
   );
