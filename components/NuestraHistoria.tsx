@@ -84,7 +84,7 @@ export default function NuestraHistoria() {
       año: "2026",
       destacado: true,
       descripcion:
-        "Aquisicao de mais um Iveco Stralis 440 Hi-Way 6x2, reforcando nossa capacidade operacional nas rotas internacionais.",
+        "Aquisicao de mais um Iveco Stralis 400 Hi-Way 6x2, reforcando nossa capacidade operacional nas rotas internacionais.",
       imagen: iux,
     },
   ];
@@ -130,9 +130,8 @@ export default function NuestraHistoria() {
             {timeline.map((item, index) => (
               <motion.div
                 key={index}
-                className={`relative flex flex-col gap-8 md:flex-row md:items-center ${
-                  index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                }`}
+                className={`relative flex flex-col gap-8 md:flex-row md:items-center ${index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                  }`}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -149,46 +148,40 @@ export default function NuestraHistoria() {
 
                 {/* Content */}
                 <div
-                  className={`flex-1 ${
-                    index % 2 === 0 ? "md:pr-16 md:text-right" : "md:pl-16"
-                  }`}
+                  className={`flex-1 ${index % 2 === 0 ? "md:pr-16 md:text-right" : "md:pl-16"
+                    }`}
                 >
                   <motion.div
-                    className={`rounded-lg p-6 ${
-                      item.destacado
+                    className={`rounded-lg p-6 ${item.destacado
                         ? "border border-foreground bg-foreground text-background"
                         : "bg-muted"
-                    }`}
+                      }`}
                     whileHover={{ scale: 1.02 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
                   >
                     <div
-                      className={`mb-3 flex items-center gap-3 ${
-                        index % 2 === 0 ? "md:justify-end" : ""
-                      }`}
+                      className={`mb-3 flex items-center gap-3 ${index % 2 === 0 ? "md:justify-end" : ""
+                        }`}
                     >
                       <Badge
                         variant={item.destacado ? "secondary" : "outline"}
-                        className={`text-xs ${
-                          item.destacado ? "bg-background text-foreground" : ""
-                        }`}
+                        className={`text-xs ${item.destacado ? "bg-background text-foreground" : ""
+                          }`}
                       >
                         {item.año}
                       </Badge>
                       <h3
-                        className={`text-lg font-semibold ${
-                          item.destacado ? "text-background" : "text-foreground"
-                        }`}
+                        className={`text-lg font-semibold ${item.destacado ? "text-background" : "text-foreground"
+                          }`}
                       >
                         {item.titulo}
                       </h3>
                     </div>
                     <p
-                      className={`text-sm leading-relaxed ${
-                        item.destacado
+                      className={`text-sm leading-relaxed ${item.destacado
                           ? "text-background/80"
                           : "text-muted-foreground"
-                      }`}
+                        }`}
                     >
                       {item.descripcion}
                     </p>
