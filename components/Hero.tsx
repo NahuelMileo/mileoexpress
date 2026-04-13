@@ -69,7 +69,7 @@ export default function Hero() {
               variants={fadeInUp}
             >
               Logistica que{" "}
-              <span className="font-semibold">move seu negocio</span>
+              <span className="font-serif italic">move seu negocio</span>
             </motion.h1>
 
             {/* Subheading */}
