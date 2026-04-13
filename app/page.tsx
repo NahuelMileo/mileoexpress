@@ -10,16 +10,16 @@ import GaleriaCarrusel from "@/components/GaleriaCarrusel";
 
 export default function MileoExpressLanding() {
   return (
-    <div className="min-h-screen bg-white">
+    <main className="min-h-screen bg-background">
       <Nav />
       <WhatsApp />
       <Hero />
       <NuestraHistoria />
       <Servicios />
       <NuestraFlota />
-      <GaleriaCarrusel/>
+      <GaleriaCarrusel />
       <Contacto />
       <Footer />
-    </div>
+    </main>
   );
 }

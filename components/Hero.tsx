@@ -1,172 +1,136 @@
 "use client";
-import { MessageCircle, MapPin } from "lucide-react";
-import { Badge } from "./ui/badge";
+
+import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import hero from "@/public/hero.jpg";
 import { motion } from "framer-motion";
 
-export default function Page() {
+export default function Hero() {
   const fadeInUp = {
-    initial: { opacity: 0, y: 60 },
+    initial: { opacity: 0, y: 40 },
     animate: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.5, ease: "easeOut" as const },
+      transition: { duration: 0.8, ease: "easeOut" as const },
     },
   };
 
   const staggerContainer = {
     animate: {
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.15,
+        delayChildren: 0.3,
       },
     },
   };
 
   const stats = [
-    { valor: "25", descripcion: "Anos de experiência" },
-    { valor: "4", descripcion: "Caminhões na frota" },
-    { valor: "+50.000", descripcion: "Toneladas transportadas" },
+    { number: "25+", label: "Anos de Experiencia" },
+    { number: "4", label: "Caminhoes na Frota" },
+    { number: "+50k", label: "Toneladas Transportadas" },
   ];
 
   return (
-    <section
-      id="inicio"
-      className="bg-gradient-to-br from-red-50 to-gray-100 pt-16"
-    >
-      <div className="container mx-auto px-4 py-20">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
+    <section id="inicio" className="relative min-h-screen overflow-hidden">
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0">
+        <Image
+          src={hero}
+          alt="Transporte Internacional"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 flex min-h-screen items-center">
+        <div className="container mx-auto px-6 lg:px-12">
           <motion.div
-            className="space-y-8"
+            className="max-w-3xl space-y-6"
             initial="initial"
             animate="animate"
             variants={staggerContainer}
           >
-            <motion.div className="space-y-4" variants={fadeInUp}>
-              <motion.div variants={fadeInUp}>
-                <Badge className="bg-red-100 text-red-800 hover:bg-red-100">
-                  Transporte Internacional
-                </Badge>
-              </motion.div>
-              <motion.h1
-                className="text-4xl leading-tight font-bold text-neutral-900 lg:text-6xl"
-                variants={fadeInUp}
-              >
-                Conectamos{" "}
-                <span className="bg-gradient-to-b from-red-600 to-red-800 bg-clip-text text-transparent">
-                  Brasil
-                </span>{" "}
-                a{" "}
-                <span className="bg-gradient-to-b from-red-600 to-red-800 bg-clip-text text-transparent">
-                  Uruguai
-                </span>
-              </motion.h1>
-              <motion.p
-                className="text-xl leading-relaxed text-gray-600"
-                variants={fadeInUp}
-              >
-                Transporte seguro e confiável de todo tipo de cargas entre
-                Uruguai e Brasil. Mais de uma década de experiência em logística
-                internacional.
-              </motion.p>
-            </motion.div>
-            <motion.div
-              className="flex flex-col gap-4 sm:flex-row"
+            {/* Small Text Above Heading */}
+            <motion.p
+              className="text-sm font-medium tracking-widest text-white/60 uppercase"
               variants={fadeInUp}
             >
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <a href="#contacto">
-                  <Button
-                    size="lg"
-                    className="cursor-pointer bg-gradient-to-b from-red-700 to-red-800 text-white hover:bg-red-800"
-                  >
-                    <MessageCircle className="mr-2 h-5 w-5" />
-                    Peça seu orçamento
-                  </Button>
-                </a>
-              </motion.div>
-              <motion.div
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <a href="#nosotros">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="cursor-pointer border-gray-300 bg-transparent"
-                  >
-                    Saiba mais
-                  </Button>
-                </a>
-              </motion.div>
-            </motion.div>
+              Transporte Internacional Brasil - Uruguai
+            </motion.p>
+
+            {/* Main Heading */}
+            <motion.h1
+              className="text-5xl leading-[1.1] font-light tracking-tight text-white md:text-6xl lg:text-7xl"
+              variants={fadeInUp}
+            >
+              Logistica que{" "}
+              <span className="font-serif italic">move seu negocio</span>
+            </motion.h1>
+
+            {/* Subheading */}
+            <motion.p
+              className="max-w-xl text-lg leading-relaxed text-white/70 md:text-xl"
+              variants={fadeInUp}
+            >
+              Mais de duas decadas conectando Brasil e Uruguai com transporte
+              seguro, pontual e confiavel para cargas de todos os tipos.
+            </motion.p>
+
+            {/* CTA Buttons - Lower position with full round */}
             <motion.div
-              className="grid grid-cols-3 gap-8 pt-8"
-              variants={staggerContainer}
+              className="flex flex-col gap-4 pt-8 sm:flex-row"
+              variants={fadeInUp}
+            >
+              <a href="#contacto">
+                <Button
+                  size="lg"
+                  className="group rounded-full bg-white px-8 py-6 text-base font-medium text-black transition-all hover:bg-white/90"
+                >
+                  Solicitar Orcamento
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </Button>
+              </a>
+              <a href="#nosotros">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="rounded-full border-white/30 bg-transparent px-8 py-6 text-base font-medium text-white transition-all hover:border-white hover:bg-white/10"
+                >
+                  Conheca Nossa Historia
+                </Button>
+              </a>
+            </motion.div>
+
+            {/* Divider */}
+            <motion.div variants={fadeInUp} className="pt-8">
+              <hr className="border-white/20" />
+            </motion.div>
+
+            {/* Stats Section */}
+            <motion.div
+              className="flex flex-wrap gap-12 pt-6"
+              variants={fadeInUp}
             >
               {stats.map((stat, index) => (
-                <motion.div
-                  key={index}
-                  className="text-center"
-                  variants={fadeInUp}
-                >
-                  <motion.div
-                    className="text-2xl font-bold text-red-900"
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    {stat.valor}
-                  </motion.div>
-                  <div className="text-sm text-gray-600">
-                    {stat.descripcion}
-                  </div>
-                </motion.div>
+                <div key={index} className="flex flex-col">
+                  <span className="text-4xl font-bold text-white md:text-5xl">
+                    {stat.number}
+                  </span>
+                  <span className="mt-1 text-xs font-medium tracking-wide text-white/50 uppercase">
+                    {stat.label}
+                  </span>
+                </div>
               ))}
-            </motion.div>
-          </motion.div>
-          <motion.div
-            className="relative"
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            >
-              <Image
-                src={hero}
-                alt="Volvo FH 480"
-                width={600}
-                height={500}
-                className="rounded-2xl shadow-2xl"
-              />
-            </motion.div>
-            <motion.div
-              className="absolute -bottom-6 -left-6 rounded-xl bg-white p-4 shadow-lg"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1, duration: 0.5 }}
-              whileHover={{ scale: 1.05 }}
-            >
-              <div className="flex items-center space-x-3">
-                <div className="rounded-lg bg-green-100 p-2">
-                  <MapPin className="h-5 w-5 text-green-600" />
-                </div>
-                <div>
-                  <div className="font-semibold text-gray-900">Rota ativa</div>
-                  <div className="text-sm text-gray-600">
-                    Montevidéu → São Paulo
-                  </div>
-                </div>
-              </div>
             </motion.div>
           </motion.div>
         </div>
       </div>
+
     </section>
   );
 }

@@ -1,25 +1,32 @@
 "use client";
 import { MessageCircle } from "lucide-react";
 import { Button } from "./ui/button";
+import { motion } from "framer-motion";
 
-export default function Page() {
+export default function WhatsApp() {
   const telefono = "+5553991338841";
 
   const abrirWhatsApp = () => {
-    const message = "Olá, gostaria de solicitar um orçamento.";
+    const message = "Ola, gostaria de solicitar um orcamento.";
     const url = `https://wa.me/${telefono}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
   };
+
   return (
-    <div className="fixed right-6 bottom-6 z-50">
+    <motion.div
+      className="fixed right-6 bottom-6 z-50"
+      initial={{ scale: 0, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      transition={{ delay: 1, type: "spring", stiffness: 300, damping: 20 }}
+    >
       <Button
         onClick={abrirWhatsApp}
         size="lg"
-        className="h-14 w-14 cursor-pointer rounded-full bg-green-500 p-0 text-white shadow-lg hover:bg-green-600"
+        className="h-14 w-14 rounded-full bg-foreground p-0 text-background shadow-lg transition-transform hover:scale-110 hover:bg-foreground/90"
         aria-label="Contactar por WhatsApp"
       >
         <MessageCircle className="h-6 w-6" />
       </Button>
-    </div>
+    </motion.div>
   );
 }

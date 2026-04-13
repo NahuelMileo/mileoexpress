@@ -1,47 +1,38 @@
 "use client";
-import { Phone, MessageCircle, Mail, MapPin } from "lucide-react";
+import { Phone, MessageCircle, Mail, MapPin, ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { motion } from "framer-motion";
 
 const telefono = "+55 53 99133 8841";
 const telefonoSinEspacios = "+5553991338841";
+
 const contactItems = [
   {
-    icon: <Phone className="h-5 w-5 text-red-900" />,
+    icon: Phone,
     title: "Telefone",
     value: telefono,
-    bgColor: "bg-red-100",
   },
   {
-    icon: <MessageCircle className="h-5 w-5 text-red-900" />,
+    icon: MessageCircle,
     title: "WhatsApp",
     value: "+598 99 874 250",
-    bgColor: "bg-red-100",
   },
   {
-    icon: <Mail className="h-5 w-5 text-red-900" />,
+    icon: Mail,
     title: "Email",
     value: "mileojorge@gmail.com",
-    bgColor: "bg-red-100",
   },
   {
-    icon: <MapPin className="h-5 w-5 text-red-900" />,
-    title: "Localização",
-    value: "Chuí, Uruguay",
-    bgColor: "bg-red-100",
+    icon: MapPin,
+    title: "Localizacao",
+    value: "Chui, Uruguay",
   },
 ];
 
-export default function Page() {
+export default function Contacto() {
   const fadeInUp = {
-    initial: { opacity: 0, y: 60 },
+    initial: { opacity: 0, y: 40 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, ease: "easeOut" },
-  };
-
-  const fadeInLeft = {
-    initial: { opacity: 0, x: -60 },
-    animate: { opacity: 1, x: 0 },
     transition: { duration: 0.6, ease: "easeOut" },
   };
 
@@ -54,162 +45,105 @@ export default function Page() {
   };
 
   const abrirWhatsApp = () => {
-    const message = "Olá, gostaria de solicitar um orçamento.";
+    const message = "Ola, gostaria de solicitar um orcamento.";
     const url = `https://wa.me/${telefonoSinEspacios}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
   };
+
   return (
-    <section
-      id="contacto"
-      className="bg-gradient-to-br from-red-50 to-gray-100 py-20"
-    >
-      <div className="container mx-auto px-4">
+    <section id="contacto" className="bg-foreground py-24 lg:py-32">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
+        {/* Header */}
         <motion.div
-          className="mb-16 text-center"
+          className="mb-20"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="mb-4 text-3xl font-bold text-gray-900 lg:text-4xl">
-            Contate-nos
+          <p className="mb-4 text-sm font-medium uppercase tracking-widest text-background/60">
+            Contato
+          </p>
+          <h2 className="mb-6 max-w-2xl text-3xl font-semibold tracking-tight text-background lg:text-5xl">
+            Vamos conversar sobre seu proximo envio
           </h2>
-          <p className="mx-auto max-w-3xl text-xl text-gray-600">
-            Estamos prontos para transportar sua carga. Peça seu orçamento sem
-            compromisso e descubra por que somos a melhor opção para seus envios
+          <p className="max-w-2xl text-lg leading-relaxed text-background/70">
+            Estamos prontos para transportar sua carga. Peca seu orcamento sem
+            compromisso e descubra por que somos a melhor opcao para seus envios
             internacionais.
           </p>
         </motion.div>
 
-        <div className="mx-auto max-w-4xl">
-          <div className="flex flex-col gap-8 lg:grid lg:grid-cols-2 lg:gap-12">
+        <div className="grid gap-12 lg:grid-cols-2">
+          {/* Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
             <motion.div
-              className="w-full"
-              initial={{ opacity: 0, x: -40 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              className="space-y-6"
+              variants={staggerContainer}
+              initial="initial"
+              whileInView="animate"
               viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
             >
-              <motion.div
-                className="rounded-2xl bg-white p-6 shadow-lg lg:p-8"
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              >
-                <h3 className="mb-6 text-xl font-semibold text-gray-900 lg:text-2xl">
-                  Informações de Contato
-                </h3>
+              {contactItems.map((contact, index) => (
                 <motion.div
-                  className="space-y-6"
-                  variants={staggerContainer}
-                  initial="initial"
-                  whileInView="animate"
-                  viewport={{ once: true }}
+                  key={index}
+                  className="flex items-center gap-4"
+                  variants={fadeInUp}
                 >
-                  {contactItems.map((contact, index) => (
-                    <motion.div
-                      key={index}
-                      className="flex items-start space-x-4"
-                      variants={fadeInLeft}
-                      whileHover={{ x: 10 }}
-                      transition={{
-                        type: "spring",
-                        stiffness: 300,
-                        damping: 20,
-                      }}
-                    >
-                      <motion.div
-                        className={`${contact.bgColor} flex-shrink-0 rounded-lg p-3`}
-                        whileHover={{ rotate: 360 }}
-                        transition={{ duration: 0.5 }}
-                      >
-                        {contact.icon}
-                      </motion.div>
-                      <div className="min-w-0 flex-1">
-                        <h4 className="font-semibold text-gray-900">
-                          {contact.title}
-                        </h4>
-                        <p className="break-all text-gray-600">
-                          {contact.value}
-                        </p>
-                      </div>
-                    </motion.div>
-                  ))}
+                  <div className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-background/10">
+                    <contact.icon className="h-5 w-5 text-background" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-background/60">{contact.title}</p>
+                    <p className="font-medium text-background">{contact.value}</p>
+                  </div>
                 </motion.div>
-              </motion.div>
+              ))}
             </motion.div>
+          </motion.div>
 
-            <motion.div
-              className="w-full"
-              initial={{ opacity: 0, x: 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <motion.div
-                className="rounded-2xl bg-white p-6 shadow-lg lg:p-8"
-                whileHover={{ scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+          {/* CTA Card */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <div className="rounded-lg bg-background p-8 lg:p-10">
+              <h3 className="mb-4 text-2xl font-semibold text-foreground">
+                Peca seu Orcamento
+              </h3>
+              <p className="mb-8 text-muted-foreground">
+                Entre em contato pelo WhatsApp para receber um orcamento
+                personalizado para sua carga. Responderemos o mais breve
+                possivel.
+              </p>
+              <Button
+                onClick={abrirWhatsApp}
+                size="lg"
+                className="group w-full rounded-full bg-foreground text-background hover:bg-foreground/90"
               >
-                <h3 className="mb-6 text-xl font-semibold text-gray-900 lg:text-2xl">
-                  Peça seu Orçamento
-                </h3>
-                <div className="space-y-6">
-                  <p className="text-gray-600">
-                    Entre em contato pelo WhatsApp para receber um orçamento
-                    personalizado para sua carga. Responderemos o mais breve
-                    possível.
-                  </p>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Button
-                      onClick={abrirWhatsApp}
-                      size="lg"
-                      className="w-full cursor-pointer bg-gradient-to-b from-green-600 to-green-700 py-4 text-base text-white hover:bg-green-700 lg:py-6 lg:text-lg"
-                    >
-                      <MessageCircle className="mr-2 h-5 w-5 flex-shrink-0 lg:mr-3 lg:h-6 lg:w-6" />
-                      <span className="truncate">
-                        Peça seu orçamento pelo WhatsApp
-                      </span>
-                    </Button>
-                  </motion.div>
-                  <motion.div
-                    className="grid grid-cols-2 gap-4 pt-4"
-                    variants={staggerContainer}
-                    initial="initial"
-                    whileInView="animate"
-                    viewport={{ once: true }}
-                  >
-                    <motion.div
-                      className="rounded-lg bg-gray-50 p-3 text-center lg:p-4"
-                      variants={fadeInUp}
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      <div className="text-xl font-bold text-red-900 lg:text-2xl">
-                        24h
-                      </div>
-                      <div className="text-xs text-gray-600 lg:text-sm">
-                        Resposta rápida
-                      </div>
-                    </motion.div>
-                    <motion.div
-                      className="rounded-lg bg-gray-50 p-3 text-center lg:p-4"
-                      variants={fadeInUp}
-                      whileHover={{ scale: 1.05 }}
-                    >
-                      <div className="text-xl font-bold text-red-900 lg:text-2xl">
-                        0$
-                      </div>
-                      <div className="text-xs text-gray-600 lg:text-sm">
-                        Orçamento gratuito
-                      </div>
-                    </motion.div>
-                  </motion.div>
+                Solicitar orcamento via WhatsApp
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Button>
+
+              <div className="mt-8 grid grid-cols-2 gap-4">
+                <div className="rounded-lg bg-muted p-4 text-center">
+                  <div className="text-2xl font-semibold text-foreground">24h</div>
+                  <div className="text-sm text-muted-foreground">Resposta rapida</div>
                 </div>
-              </motion.div>
-            </motion.div>
-          </div>
+                <div className="rounded-lg bg-muted p-4 text-center">
+                  <div className="text-2xl font-semibold text-foreground">Gratis</div>
+                  <div className="text-sm text-muted-foreground">Orcamento sem custo</div>
+                </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
     </section>
