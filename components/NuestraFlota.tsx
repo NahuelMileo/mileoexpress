@@ -43,7 +43,7 @@ const fleet = [
     title: "Iveco Stralis 400 Hi-Way",
     description:
       "Caminhao moderno e eficiente, incorporado em 2026, preparado para operacoes internacionais com alto desempenho.",
-    specs: ["440 HP", "6x2", "Ate 30 pallets"],
+    specs: ["400 HP", "6x2", "Ate 30 pallets"],
   },
 ];
 
