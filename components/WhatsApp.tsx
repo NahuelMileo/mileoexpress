@@ -7,7 +7,7 @@ export default function WhatsApp() {
   const telefono = "+5553991338841";
 
   const abrirWhatsApp = () => {
-    const message = "Ola, gostaria de solicitar um orcamento.";
+    const message = "Olá, gostaria de solicitar um orçamento.";
     const url = `https://wa.me/${telefono}?text=${encodeURIComponent(message)}`;
     window.open(url, "_blank");
   };

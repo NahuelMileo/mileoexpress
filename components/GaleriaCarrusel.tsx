@@ -11,23 +11,24 @@ import {
 import Autoplay from "embla-carousel-autoplay";
 
 const images = [
-  { src: "/111.jpg", alt: "Scania 111 - Onde tudo comecou" },
-  { src: "/112.jpg", alt: "Scania 112 HW" },
-  { src: "/1935.jpg", alt: "Mercedes-Benz 1935" },
-  { src: "/carga.jpg", alt: "Operacoes de carga" },
-  { src: "/carga2.jpg", alt: "Carregamento" },
-  { src: "/hero.jpg", alt: "Frota Mileo Express" },
-  { src: "/hero - copia.jpg", alt: "Mileo Express" },
-  { src: "/ikg.jpg", alt: "Volvo FH 380" },
-  { src: "/international.jpg", alt: "International 9800" },
+  { src: "/111.webp", alt: "Scania 111 - Onde tudo começou" },
+  { src: "/112.webp", alt: "Scania 112 HW" },
+  { src: "/1935.webp", alt: "Mercedes-Benz 1935" },
+  { src: "/carga.webp", alt: "Operações de carga" },
+  { src: "/carga2.webp", alt: "Carregamento" },
+  { src: "/hero.webp", alt: "Frota Mileo Express" },
+  { src: "/hero - copia.webp", alt: "Mileo Express" },
+  { src: "/ikg.webp", alt: "Volvo FH 380" },
+  { src: "/international.webp", alt: "International 9800" },
   { src: "/iveco.png", alt: "Iveco" },
-  { src: "/iwy.jpg", alt: "Iveco Stralis 440" },
-  { src: "/iux.jpg", alt: "Iveco Stralis 440 Hi-Way" },
-  { src: "/miq.jpg", alt: "Volvo FH 480" },
-  { src: "/palmeira.jpg", alt: "Sider Palmeira" },
-  { src: "/randonN.jpg", alt: "Sider Randon" },
+  { src: "/iwy.webp", alt: "Iveco Stralis 440" },
+  { src: "/iux.webp", alt: "Iveco Stralis 440 Hi-Way" },
+  { src: "/miq.webp", alt: "Volvo FH 480" },
+  { src: "/palmeira.webp", alt: "Sider Palmeira" },
+  { src: "/randonN.webp", alt: "Sider Randon" },
   { src: "/WhatsApp Image 2026-04-10 at 19.32.20.jpeg", alt: "Frota" },
   { src: "/WhatsApp Image 2026-04-10 at 19.32.30.jpeg", alt: "Frota" },
+  { src: "/sidernuevo.webp", alt: "Novo Sider 0 km" },
 ];
 
 export default function GaleriaCarrusel() {
@@ -46,10 +47,10 @@ export default function GaleriaCarrusel() {
             Galeria
           </p>
           <h2 className="mb-6 max-w-2xl text-3xl font-semibold tracking-tight text-foreground lg:text-5xl">
-            Nossa historia em imagens
+            Nossa história em imagens
           </h2>
           <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Conheca nossa frota e operacoes atraves das decadas.
+            Conheça nossa frota e operações através das décadas.
           </p>
         </motion.div>
 
@@ -66,7 +67,7 @@ export default function GaleriaCarrusel() {
                     src={img.src}
                     alt={img.alt}
                     fill
-                    className="object-cover grayscale transition-all duration-500 hover:grayscale-0"
+                    className="object-cover"
                     sizes="(max-width: 768px) 100vw, 1024px"
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-foreground/80 to-transparent p-8">

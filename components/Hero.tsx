@@ -3,7 +3,7 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
 import Image from "next/image";
-import hero from "@/public/hero.jpg";
+import hero from "@/public/hero.webp";
 import { motion } from "framer-motion";
 
 export default function Hero() {
@@ -26,8 +26,8 @@ export default function Hero() {
   };
 
   const stats = [
-    { number: "25+", label: "Anos de Experiencia" },
-    { number: "4", label: "Caminhoes na Frota" },
+    { number: "25+", label: "Anos de Experiência" },
+    { number: "4", label: "Caminhões na Frota" },
     { number: "+50k", label: "Toneladas Transportadas" },
   ];
 
@@ -60,7 +60,7 @@ export default function Hero() {
               className="text-sm font-medium tracking-widest text-white/60 uppercase"
               variants={fadeInUp}
             >
-              Transporte Internacional Brasil - Uruguai
+              Transporte Internacional Brasil · Uruguai · Argentina
             </motion.p>
 
             {/* Main Heading */}
@@ -68,8 +68,9 @@ export default function Hero() {
               className="text-5xl leading-[1.1] font-light tracking-tight text-white md:text-6xl lg:text-7xl"
               variants={fadeInUp}
             >
-              Logistica que{" "}
-              <span className="font-serif italic">move seu negocio</span>
+              Conectando Brasil{" "}
+              <span className="font-serif italic">e Uruguai</span>{" "}
+              desde 2000
             </motion.h1>
 
             {/* Subheading */}
@@ -77,8 +78,9 @@ export default function Hero() {
               className="max-w-xl text-lg leading-relaxed text-white/70 md:text-xl"
               variants={fadeInUp}
             >
-              Mais de duas decadas conectando Brasil e Uruguai com transporte
-              seguro, pontual e confiavel para cargas de todos os tipos.
+              Empresa familiar especializada na rota São Paulo–Montevideo.
+              Atendimento direto com os donos, sem intermediários, com mais de
+              25 anos de experiência comprovada.
             </motion.p>
 
             {/* CTA Buttons - Lower position with full round */}
@@ -86,22 +88,22 @@ export default function Hero() {
               className="flex flex-col gap-4 pt-8 sm:flex-row"
               variants={fadeInUp}
             >
-              <a href="#contacto">
+              <a href="#contato">
                 <Button
                   size="lg"
                   className="group rounded-full bg-white px-8 py-6 text-base font-medium text-black transition-all hover:bg-white/90"
                 >
-                  Solicitar Orcamento
+                  Solicitar Orçamento
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </a>
-              <a href="#nosotros">
+              <a href="#sobre-nos">
                 <Button
                   size="lg"
                   variant="outline"
-                  className="rounded-full border-white/30 bg-transparent px-8 py-6 text-base font-medium text-white transition-all hover:border-white hover:bg-white/10"
+                  className="rounded-full border-white/30 bg-transparent px-8 py-6 text-base font-medium text-white transition-all hover:border-white hover:bg-white hover:text-black"
                 >
-                  Conheca Nossa Historia
+                  Conheça Nossa História
                 </Button>
               </a>
             </motion.div>
@@ -113,7 +115,7 @@ export default function Hero() {
 
             {/* Stats Section */}
             <motion.div
-              className="flex flex-wrap gap-12 pt-6"
+              className="flex flex-wrap gap-36 pt-6"
               variants={fadeInUp}
             >
               {stats.map((stat, index) => (

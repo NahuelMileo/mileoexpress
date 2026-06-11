@@ -4,11 +4,11 @@ import Link from "next/link";
 
 export default function Footer() {
   const links = [
-    { href: "#inicio", text: "Inicio" },
-    { href: "#nosotros", text: "Nossa Historia" },
-    { href: "#servicios", text: "Servicos" },
-    { href: "#flota", text: "Frota" },
-    { href: "#contacto", text: "Contato" },
+    { href: "#inicio", text: "Início" },
+    { href: "#sobre-nos", text: "Nossa História" },
+    { href: "#servicos", text: "Serviços" },
+    { href: "#frota", text: "Frota" },
+    { href: "#contato", text: "Contato" },
   ];
 
   const contacto = [
@@ -35,15 +35,15 @@ export default function Footer() {
               </span>
             </Link>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              Transporte internacional confiavel entre Brasil e Uruguai. Uma
-              empresa familiar com mais de 25 anos de experiencia.
+              Transporte internacional confiável entre Brasil e Uruguai. Uma
+              empresa familiar com mais de 25 anos de experiência.
             </p>
           </div>
 
           {/* Links */}
           <div>
             <h4 className="mb-4 text-sm font-semibold uppercase tracking-widest text-foreground">
-              Navegacao
+              Navegação
             </h4>
             <div className="space-y-3">
               {links.map((link, index) => (

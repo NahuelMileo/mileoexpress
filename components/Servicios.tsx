@@ -1,12 +1,12 @@
 "use client";
-import { Shield, Clock, Users, Package, Thermometer, Truck } from "lucide-react";
-import carga from "@/public/carga2.jpg";
+import { Shield, Clock, Users, Package, Truck } from "lucide-react";
+import carga from "@/public/carga2.webp";
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
 
 const services = [
   {
-    title: "Seguranca Garantida",
+    title: "Segurança Garantida",
     description:
       "Todas as cargas viajam com seguros completos e rastreamento em tempo real.",
     icon: Shield,
@@ -14,7 +14,7 @@ const services = [
   {
     title: "Pontualidade",
     description:
-      "Cumprimos prazos acordados gracas a experiencia em rotas internacionais.",
+      "Cumprimos prazos acordados graças à experiência em rotas internacionais.",
     icon: Clock,
   },
   {
@@ -27,18 +27,13 @@ const services = [
 
 const cargaItems = [
   {
-    title: "Carga Geral",
-    description: "Mercadoria paletizada, caixas, equipamentos industriais",
+    title: "Cargas Secas",
+    description: "Mercadoria paletizada, caixas, equipamentos industriais e produtos embalados",
     icon: Package,
   },
   {
-    title: "Carga Refrigerada",
-    description: "Produtos que requerem controle de temperatura",
-    icon: Thermometer,
-  },
-  {
-    title: "Carga Especial",
-    description: "Maquinas pesadas, equipamentos sobredimensionados",
+    title: "Químicos",
+    description: "Transporte especializado de produtos químicos com toda a documentação e segurança exigidas",
     icon: Truck,
   },
 ];
@@ -62,7 +57,7 @@ export default function Servicios() {
   };
 
   return (
-    <section id="servicios" className="bg-muted py-24 lg:py-32">
+    <section id="servicos" className="bg-muted py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -73,14 +68,14 @@ export default function Servicios() {
           transition={{ duration: 0.6 }}
         >
           <p className="mb-4 text-sm font-medium uppercase tracking-widest text-muted-foreground">
-            Nossos Servicos
+            Nossos Serviços
           </p>
           <h2 className="mb-6 max-w-2xl text-3xl font-semibold tracking-tight text-foreground lg:text-5xl">
             Transportamos todo tipo de carga internacional
           </h2>
           <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Com compromisso, experiencia e seguranca que nos caracterizam ha
-            mais de duas decadas.
+            Com compromisso, experiência e segurança que nos caracterizam há
+            mais de duas décadas.
           </p>
         </motion.div>
 
@@ -156,7 +151,7 @@ export default function Servicios() {
                 src={carga}
                 alt="Servicios de carga"
                 fill
-                className="object-cover grayscale transition-all duration-500 hover:grayscale-0"
+                className="object-cover"
               />
             </div>
           </div>

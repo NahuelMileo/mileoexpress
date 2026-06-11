@@ -21,10 +21,10 @@ export default function Nav() {
 
   const navItems = [
     { href: "#inicio", label: "Início" },
-    { href: "#nosotros", label: "Sobre Nós" },
-    { href: "#servicios", label: "Serviços" },
-    { href: "#flota", label: "Nossa Frota" },
-    { href: "#contacto", label: "Contato" },
+    { href: "#sobre-nos", label: "Sobre Nós" },
+    { href: "#servicos", label: "Serviços" },
+    { href: "#frota", label: "Nossa Frota" },
+    { href: "#contato", label: "Contato" },
   ];
 
   return (

@@ -2,16 +2,17 @@
 
 import { Badge } from "./ui/badge";
 import Image from "next/image";
-import scania111 from "../public/111.jpg";
-import mercedes1935 from "../public/1935.jpg";
-import scania112 from "../public/112.jpg";
-import international from "../public/international.jpg";
-import volvo380 from "../public/ikg.jpg";
-import volvo480 from "../public/miq.jpg";
-import iveco from "../public/iwy.jpg";
-import randonN from "../public/randonN.jpg";
-import palmeira from "../public/palmeira.jpg";
-import iux from "../public/iux.jpg";
+import scania111 from "../public/111.webp";
+import mercedes1935 from "../public/1935.webp";
+import scania112 from "../public/112.webp";
+import international from "../public/international.webp";
+import volvo380 from "../public/ikg.webp";
+import volvo480 from "../public/miq.webp";
+import iveco from "../public/iwy.webp";
+import randonN from "../public/randonN.webp";
+import palmeira from "../public/palmeira.webp";
+import iux from "../public/iux.webp";
+import sidernuevo from "../public/sidernuevo.webp";
 import { motion } from "framer-motion";
 
 export default function NuestraHistoria() {
@@ -20,7 +21,7 @@ export default function NuestraHistoria() {
       titulo: "Os primeiros passos",
       año: "2000",
       descripcion:
-        "Nossa jornada comecou ha 25 anos, com um classico Scania 111, ano 1978, acoplado a uma carreta Randon graneleira de 1989.",
+        "Nossa jornada começou há 25 anos, com um clássico Scania 111, ano 1978, acoplado a uma carreta Randon graneleira de 1989.",
       imagen: scania111,
     },
     {
@@ -31,66 +32,73 @@ export default function NuestraHistoria() {
       imagen: mercedes1935,
     },
     {
-      titulo: "Expansao e diversificacao",
+      titulo: "Expansão e diversificação",
       año: "2014",
       descripcion:
-        "Incorporamos um Scania 112 HW 360 hp 4x2, ano 1991, e ampliamos atuacao com transporte para parques eolicos.",
+        "Incorporamos um Scania 112 HW 360 hp 4x2, ano 1991, e ampliamos atuação com transporte para parques eólicos.",
       imagen: scania112,
     },
     {
       titulo: "Fortalecimento com International",
       año: "2016",
       descripcion:
-        "Reforcamos nossa frota com um International 9800, 405 hp, configuracao 6x4, elevando nosso padrao operacional.",
+        "Reforçamos nossa frota com um International 9800, 405 hp, configuração 6x4, elevando nosso padrão operacional.",
       imagen: international,
     },
     {
       titulo: "Chegada da Volvo",
       año: "2018",
       descripcion:
-        "Grande salto tecnologico com a chegada do primeiro Volvo FH 380cv, configuracao 6x2, junto ao primeiro Sider Randon.",
+        "Grande salto tecnológico com a chegada do primeiro Volvo FH 380cv, configuração 6x2, junto ao primeiro Sider Randon.",
       imagen: volvo380,
     },
     {
-      titulo: "Expansao da frota",
+      titulo: "Expansão da frota",
       año: "2021",
       descripcion:
-        "Ampliamos com Volvo FH 480, passando a operar com dois caminhoes e expandindo rotas para Argentina, Uruguai e Brasil.",
+        "Ampliamos com Volvo FH 480, passando a operar com dois caminhões e expandindo rotas para Argentina, Uruguai e Brasil.",
       imagen: volvo480,
     },
     {
       titulo: "Novo Sider Randon",
       año: "2024",
       descripcion:
-        "Recebemos nosso segundo Sider Randon, ano 2014, reforcando capacidade e versatilidade para demandas logisticas.",
+        "Recebemos nosso segundo Sider Randon, ano 2014, reforçando capacidade e versatilidade para demandas logísticas.",
       imagen: randonN,
     },
     {
       titulo: "Iveco Stralis 440",
       año: "2024",
       descripcion:
-        "Completamos nossa frota com o Iveco Stralis 440 6x2, ano 2014, reforcando nosso compromisso com excelencia.",
+        "Completamos nossa frota com o Iveco Stralis 440 6x2, ano 2014, reforçando nosso compromisso com excelência.",
       imagen: iveco,
     },
     {
       titulo: "Sider Palmeira",
       año: "2025",
       descripcion:
-        "Chegada de um Sider Palmeira com capacidade para 30 pallets, garantindo maior eficiencia no transporte internacional.",
+        "Chegada de um Sider Palmeira com capacidade para 30 pallets, garantindo maior eficiência no transporte internacional.",
       imagen: palmeira,
     },
     {
-      titulo: "Novo reforco na frota",
+      titulo: "Novo reforço na frota",
+      año: "2026",
+      descripcion:
+        "Aquisição de mais um Iveco Stralis 400 Hi-Way 6x2, reforçando nossa capacidade operacional nas rotas internacionais.",
+      imagen: iux,
+    },
+    {
+      titulo: "Novo Sider 0 km",
       año: "2026",
       destacado: true,
       descripcion:
-        "Aquisicao de mais um Iveco Stralis 400 Hi-Way 6x2, reforcando nossa capacidade operacional nas rotas internacionais.",
-      imagen: iux,
+        "Em maio de 2026, incorporamos nosso primeiro sider zero quilômetro, marcando um novo patamar de qualidade e modernização da frota Mileo Express.",
+      imagen: sidernuevo,
     },
   ];
 
   return (
-    <section id="nosotros" className="bg-background py-24 lg:py-32">
+    <section id="sobre-nos" className="bg-background py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -101,15 +109,15 @@ export default function NuestraHistoria() {
           transition={{ duration: 0.6 }}
         >
           <p className="mb-4 text-sm font-medium uppercase tracking-widest text-muted-foreground">
-            Nossa Historia
+            Nossa História
           </p>
           <h2 className="mb-6 max-w-2xl text-3xl font-semibold tracking-tight text-foreground lg:text-5xl">
             Uma jornada familiar de 25 anos no transporte de cargas
           </h2>
           <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Tudo comecou em 2000, quando nosso fundador deu os primeiros passos
-            no transporte de cargas. Com determinacao e trabalho arduo,
-            transformamos um sonho familiar em uma empresa solida.
+            Tudo começou em 2000, quando nosso fundador deu os primeiros passos
+            no transporte de cargas. Com determinação e trabalho árduo,
+            transformamos um sonho familiar em uma empresa sólida.
           </p>
         </motion.div>
 
@@ -200,7 +208,7 @@ export default function NuestraHistoria() {
                       alt={item.titulo}
                       width={500}
                       height={300}
-                      className="h-64 w-full object-cover grayscale transition-all duration-500 hover:grayscale-0"
+                      className="h-64 w-full object-cover"
                     />
                   </motion.div>
                 </div>

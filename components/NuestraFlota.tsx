@@ -2,10 +2,10 @@
 import { Badge } from "./ui/badge";
 import Image from "next/image";
 
-import miq from "@/public/miq.jpg";
-import ikg from "@/public/ikg.jpg";
-import iwy from "@/public/iwy.jpg";
-import iux from "@/public/iux.jpg";
+import miq from "@/public/miq.webp";
+import ikg from "@/public/ikg.webp";
+import iwy from "@/public/iwy.webp";
+import iux from "@/public/iux.webp";
 import { motion, Variants } from "framer-motion";
 
 const fleet = [
@@ -15,7 +15,7 @@ const fleet = [
     brand: "Volvo",
     title: "Volvo FH 480",
     description:
-      "Caminhao de alta gama com tecnologia avancada para transporte seguro e eficiente em rotas internacionais.",
+      "Caminhão de alta gama com tecnologia avançada para transporte seguro e eficiente em rotas internacionais.",
     specs: ["480 HP", "6x2", "GPS"],
   },
   {
@@ -42,8 +42,8 @@ const fleet = [
     brand: "Iveco",
     title: "Iveco Stralis 400 Hi-Way",
     description:
-      "Caminhao moderno e eficiente, incorporado em 2026, preparado para operacoes internacionais com alto desempenho.",
-    specs: ["400 HP", "6x2", "Ate 30 pallets"],
+      "Caminhão moderno e eficiente, incorporado em 2026, preparado para operações internacionais com alto desempenho.",
+    specs: ["400 HP", "6x2", "Até 30 pallets"],
   },
 ];
 
@@ -66,7 +66,7 @@ export default function NuestraFlota() {
   };
 
   return (
-    <section id="flota" className="bg-background py-24 lg:py-32">
+    <section id="frota" className="bg-background py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -80,10 +80,10 @@ export default function NuestraFlota() {
             Nossa Frota
           </p>
           <h2 className="mb-6 max-w-2xl text-3xl font-semibold tracking-tight text-foreground lg:text-5xl">
-            Quatro caminhoes modernos e confiaveis
+            Quatro caminhões modernos e confiáveis
           </h2>
           <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Equipamentos de ultima geracao que garantem o melhor servico no
+            Equipamentos de última geração que garantem o melhor serviço no
             transporte internacional de cargas.
           </p>
         </motion.div>
@@ -108,7 +108,7 @@ export default function NuestraFlota() {
                     src={truck.image}
                     alt={truck.alt}
                     fill
-                    className="object-cover grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                    className="object-cover transition-all duration-500 group-hover:scale-105"
                   />
                   <div className="absolute top-4 left-4">
                     <Badge className="bg-foreground text-background">
