@@ -28,7 +28,7 @@ const contactItems = [
   {
     icon: Mail,
     title: "E-mail",
-    value: "mileojorge@gmail.com",
+    value: "contato@mileoexpress.com",
   },
   {
     icon: MapPin,
