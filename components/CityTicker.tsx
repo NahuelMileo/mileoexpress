@@ -11,7 +11,6 @@ const cities = [
   "Chuí",
   "Rocha",
   "Montevideo",
-  "Buenos Aires",
 ];
 
 function Row() {
@@ -60,7 +59,7 @@ export default function CityTicker() {
 
   return (
     <div
-      aria-label="Cidades atendidas: São Paulo, Porto Alegre, Pelotas, Rio Grande, Chuí, Rocha, Montevideo e Buenos Aires"
+      aria-label="Cidades atendidas: São Paulo, Porto Alegre, Pelotas, Rio Grande, Chuí, Rocha e Montevideo"
       className="relative z-10 overflow-hidden bg-brand py-5 text-white"
     >
       <div

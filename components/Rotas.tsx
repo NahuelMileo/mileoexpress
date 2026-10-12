@@ -186,11 +186,6 @@ export default function Rotas() {
               </div>
             ))}
           </div>
-
-          <p className="mt-10 border-t border-black/10 pt-6 text-sm text-black/60">
-            <strong className="text-asphalt">Também atendemos a Argentina.</strong>{" "}
-            Rotas para Buenos Aires e outras províncias mediante consulta.
-          </p>
         </div>
 
         <div

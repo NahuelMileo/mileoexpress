@@ -23,7 +23,7 @@ export default function OpengraphImage() {
         <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
           <div style={{ width: 18, height: 18, borderRadius: 999, background: "#e0262b" }} />
           <div style={{ fontSize: 28, letterSpacing: 6, color: "rgba(255,255,255,0.7)" }}>
-            BRASIL · URUGUAI · ARGENTINA
+            BRASIL · URUGUAI
           </div>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>

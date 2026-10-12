@@ -65,7 +65,7 @@ const timeline: Hito[] = [
     titulo: "Expansão da frota",
     año: "2021",
     descripcion:
-      "Chega o Volvo FH 480: passamos a operar com dois caminhões e expandimos rotas para Argentina, Uruguai e Brasil.",
+      "Chega o Volvo FH 480: passamos a operar com dois caminhões e ampliamos nossas rotas entre Brasil e Uruguai.",
     imagen: volvo480,
   },
   {

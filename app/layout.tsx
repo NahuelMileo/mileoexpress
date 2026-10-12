@@ -56,7 +56,7 @@ const jsonLd = {
     addressRegion: "Rocha",
     addressCountry: "UY",
   },
-  areaServed: ["Brasil", "Uruguai", "Argentina"],
+  areaServed: ["Brasil", "Uruguai"],
 };
 
 export default function RootLayout({

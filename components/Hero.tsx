@@ -97,7 +97,7 @@ export default function Hero() {
       <div className="hero-content relative z-10 mx-auto w-full max-w-7xl px-5 pt-32 pb-14 lg:px-8 lg:pb-20">
         <p className="hero-in mb-6 flex items-center gap-3 text-xs font-semibold tracking-[0.25em] text-white/70 uppercase">
           <span className="h-px w-10 bg-brand-bright" />
-          Brasil · Uruguai · Argentina
+          Brasil · Uruguai
         </p>
 
         <h1 className="hero-title font-wide max-w-5xl text-[clamp(2.6rem,7.5vw,6.6rem)] leading-[0.95] font-extrabold tracking-tight">
