@@ -1,6 +1,5 @@
-"use client";
 import { Users, Navigation, MessageCircle, Award } from "lucide-react";
-import { motion, Variants } from "framer-motion";
+import Words from "./motion/Words";
 
 const items = [
   {
@@ -11,7 +10,7 @@ const items = [
   },
   {
     icon: Navigation,
-    title: "Especialistas na rota Brasil-Uruguai",
+    title: "Especialistas na rota Brasil–Uruguai",
     description:
       "Mais de 25 anos operando a mesma rota. Conhecemos cada detalhe do caminho, da fronteira e dos processos aduaneiros.",
   },
@@ -19,7 +18,7 @@ const items = [
     icon: MessageCircle,
     title: "Rastreamento via WhatsApp",
     description:
-      "Acompanhe sua carga em tempo real durante todo o trajeto. Comunicação direta, sem intermediários.",
+      "Acompanhe sua carga em tempo real durante todo o trajeto, com comunicação direta e sem intermediários.",
   },
   {
     icon: Award,
@@ -30,60 +29,46 @@ const items = [
 ];
 
 export default function Diferenciadores() {
-  const fadeInUp: Variants = {
-    initial: { opacity: 0, y: 40 },
-    animate: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
-  };
-
   return (
-    <section className="bg-foreground py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <motion.div
-          className="mb-16"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <p className="mb-4 text-sm font-medium uppercase tracking-widest text-background/50">
+    <section className="relative overflow-hidden bg-asphalt py-24 text-white lg:py-36">
+      <div
+        aria-hidden="true"
+        className="font-wide pointer-events-none absolute -top-10 right-0 text-[28vw] leading-none font-extrabold text-white/[0.03] select-none"
+      >
+        25
+      </div>
+      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
+        <div className="mb-16 max-w-3xl">
+          <p className="mb-4 flex items-center gap-3 text-xs font-semibold tracking-[0.25em] text-white/50 uppercase">
+            <span className="h-px w-10 bg-brand-bright" />
             Por que nos escolher
           </p>
-          <h2 className="max-w-2xl text-3xl font-semibold tracking-tight text-background lg:text-5xl">
-            O que nos diferencia das demais transportadoras
+          <h2
+            data-words
+            className="font-wide text-[clamp(2rem,4.4vw,3.6rem)] leading-[1] font-extrabold tracking-tight"
+          >
+            <Words text="O que nos diferencia das demais transportadoras" />
           </h2>
-        </motion.div>
+        </div>
 
-        <motion.div
-          className="grid gap-8 sm:grid-cols-2"
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          transition={{ staggerChildren: 0.1 }}
-        >
-          {items.map((item, index) => (
-            <motion.div
-              key={index}
-              variants={fadeInUp}
-              className="flex gap-5 rounded-lg border border-background/10 p-6 transition-colors hover:border-background/30"
+        <div data-stagger className="grid gap-4 sm:grid-cols-2">
+          {items.map((item) => (
+            <div
+              key={item.title}
+              className="group flex gap-5 rounded-2xl bg-white/[0.04] p-7 ring-1 ring-white/10 transition-all duration-500 hover:bg-white/[0.07] hover:ring-brand-bright/60 lg:p-9"
             >
-              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-background/10">
-                <item.icon className="h-5 w-5 text-background" />
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand transition-transform duration-500 group-hover:scale-110">
+                <item.icon className="h-5 w-5 text-white" />
               </div>
               <div>
-                <h3 className="mb-2 font-semibold text-background">
-                  {item.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-background/60">
+                <h3 className="text-lg font-bold">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-white/60">
                   {item.description}
                 </p>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

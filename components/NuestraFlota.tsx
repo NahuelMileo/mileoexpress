@@ -1,143 +1,178 @@
 "use client";
-import { Badge } from "./ui/badge";
-import Image from "next/image";
 
+import { useRef } from "react";
+import Image, { type StaticImageData } from "next/image";
 import miq from "@/public/miq.webp";
 import ikg from "@/public/ikg.webp";
 import iwy from "@/public/iwy.webp";
 import iux from "@/public/iux.webp";
-import { motion, Variants } from "framer-motion";
+import Words from "./motion/Words";
+import { gsap, useGSAP, MOTION_OK } from "@/lib/motion";
 
-const fleet = [
+type Truck = {
+  image: StaticImageData;
+  brand: string;
+  title: string;
+  hp: number;
+  description: string;
+  specs: string[];
+};
+
+const fleet: Truck[] = [
   {
-    image: miq.src,
-    alt: "Volvo FH 480",
+    image: miq,
     brand: "Volvo",
     title: "Volvo FH 480",
+    hp: 480,
     description:
       "Caminhão de alta gama com tecnologia avançada para transporte seguro e eficiente em rotas internacionais.",
-    specs: ["480 HP", "6x2", "GPS"],
+    specs: ["6x2", "GPS"],
   },
   {
-    image: ikg.src,
-    alt: "Volvo FH 380",
+    image: ikg,
     brand: "Volvo",
     title: "Volvo FH 380",
+    hp: 380,
     description:
-      "Segundo Volvo, com 380 HP, adquirido durante a pandemia, ampliando nossa capacidade operacional.",
-    specs: ["380 HP", "6x2", "GPS"],
+      "Segundo Volvo da frota, adquirido durante a pandemia, ampliando nossa capacidade operacional.",
+    specs: ["6x2", "GPS"],
   },
   {
-    image: iwy.src,
-    alt: "Iveco Stralis 440 Hi-Way",
+    image: iwy,
     brand: "Iveco",
     title: "Iveco Stralis 440 Hi-Way",
+    hp: 440,
     description:
-      "Tecnologia italiana de ponta com capacidade para 28 pallets e sider Palmeira de 30 pallets.",
-    specs: ["440 HP", "6x2", "28-30 pallets"],
+      "Tecnologia italiana com capacidade para 28 pallets e sider Palmeira de 30 pallets.",
+    specs: ["6x2", "28–30 pallets"],
   },
   {
-    image: iux.src,
-    alt: "Iveco Stralis 400 Hi-Way",
+    image: iux,
     brand: "Iveco",
     title: "Iveco Stralis 400 Hi-Way",
+    hp: 400,
     description:
-      "Caminhão moderno e eficiente, incorporado em 2026, preparado para operações internacionais com alto desempenho.",
-    specs: ["400 HP", "6x2", "Até 30 pallets"],
+      "Incorporado em 2026, preparado para operações internacionais com alto desempenho.",
+    specs: ["6x2", "Até 30 pallets"],
   },
 ];
 
+/** Flota: las tarjetas se apilan una sobre otra mientras se baja. */
 export default function NuestraFlota() {
-  const fadeInUp : Variants= {
-    initial: { opacity: 0, y: 40 },
-    animate: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
-  };
+  const root = useRef<HTMLElement>(null);
 
-  const staggerContainer = {
-    animate: {
-      transition: {
-        staggerChildren: 0.1,
-      },
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add(MOTION_OK, () => {
+        const cards = gsap.utils.toArray<HTMLElement>(".fleet-card");
+        cards.forEach((card, i) => {
+          const next = cards[i + 1];
+          if (next) {
+            gsap.to(card.querySelector(".fleet-inner"), {
+              scale: 0.94,
+              filter: "brightness(0.82)",
+              ease: "none",
+              scrollTrigger: {
+                trigger: next,
+                start: "top 55%",
+                end: "top 12%",
+                scrub: true,
+              },
+            });
+          }
+          const img = card.querySelector(".fleet-img");
+          if (img)
+            gsap.fromTo(
+              img,
+              { scale: 1.2 },
+              {
+                scale: 1,
+                ease: "none",
+                scrollTrigger: { trigger: card, start: "top bottom", end: "top 20%", scrub: true },
+              },
+            );
+        });
+      });
+      return () => mm.revert();
     },
-  };
+    { scope: root },
+  );
 
   return (
-    <section id="frota" className="bg-background py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Header */}
-        <motion.div
-          className="mb-20"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <p className="mb-4 text-sm font-medium uppercase tracking-widest text-muted-foreground">
-            Nossa Frota
-          </p>
-          <h2 className="mb-6 max-w-2xl text-3xl font-semibold tracking-tight text-foreground lg:text-5xl">
-            Quatro caminhões modernos e confiáveis
-          </h2>
-          <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Equipamentos de última geração que garantem o melhor serviço no
-            transporte internacional de cargas.
-          </p>
-        </motion.div>
-
-        {/* Fleet Grid */}
-        <motion.div
-          className="grid gap-8 md:grid-cols-2"
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          variants={staggerContainer}
-        >
-          {fleet.map((truck, index) => (
-            <motion.div
-              key={index}
-              variants={fadeInUp}
-              className="group"
+    <section id="frota" ref={root} className="bg-paper py-24 lg:py-36">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <div className="mb-14 flex flex-wrap items-end justify-between gap-6 lg:mb-20">
+          <div className="max-w-3xl">
+            <p className="mb-4 flex items-center gap-3 text-xs font-semibold tracking-[0.25em] text-black/50 uppercase">
+              <span className="h-px w-10 bg-brand" />
+              Nossa frota
+            </p>
+            <h2
+              data-words
+              className="font-wide text-[clamp(2rem,4.4vw,3.6rem)] leading-[1] font-extrabold tracking-tight text-asphalt"
             >
-              <div className="overflow-hidden rounded-lg border border-border bg-background transition-all duration-300 hover:border-foreground">
-                <div className="relative h-72 overflow-hidden">
+              <Words text="Quatro caminhões próprios, prontos para a estrada" />
+            </h2>
+          </div>
+          <p data-fade className="max-w-sm text-black/60">
+            Equipamentos revisados e operados pela família, sem terceirização.
+          </p>
+        </div>
+
+        <div className="space-y-6">
+          {fleet.map((truck, i) => (
+            <article
+              key={truck.title}
+              className="fleet-card sticky"
+              style={{ top: `calc(5.5rem + ${i * 1.25}rem)` }}
+            >
+              <div className="fleet-inner grid origin-top overflow-hidden rounded-3xl bg-white shadow-[0_30px_60px_-30px_rgba(0,0,0,0.3)] ring-1 ring-black/5 md:grid-cols-[1.25fr_1fr]">
+                <div className="relative h-60 overflow-hidden sm:h-80 md:h-[26rem]">
                   <Image
                     src={truck.image}
-                    alt={truck.alt}
+                    alt={truck.title}
                     fill
-                    className="object-cover transition-all duration-500 group-hover:scale-105"
+                    sizes="(max-width: 768px) 100vw, 55vw"
+                    className="fleet-img object-cover"
                   />
-                  <div className="absolute top-4 left-4">
-                    <Badge className="bg-foreground text-background">
-                      {truck.brand}
-                    </Badge>
-                  </div>
+                  <span className="absolute top-5 left-5 rounded-full bg-asphalt/85 px-3 py-1 text-xs font-semibold text-white backdrop-blur">
+                    {truck.brand}
+                  </span>
                 </div>
-                <div className="p-6">
-                  <h3 className="mb-2 text-xl font-semibold text-foreground">
-                    {truck.title}
-                  </h3>
-                  <p className="mb-4 text-sm leading-relaxed text-muted-foreground">
-                    {truck.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {truck.specs.map((spec, specIndex) => (
-                      <span
-                        key={specIndex}
-                        className="rounded-full bg-muted px-3 py-1 text-xs text-muted-foreground"
-                      >
-                        {spec}
-                      </span>
-                    ))}
+                <div className="flex flex-col justify-between gap-8 p-7 md:p-10">
+                  <div>
+                    <p className="font-mono text-xs text-black/40">
+                      {String(i + 1).padStart(2, "0")} / {String(fleet.length).padStart(2, "0")}
+                    </p>
+                    <h3 className="font-wide mt-3 text-2xl leading-tight font-extrabold text-asphalt md:text-3xl">
+                      {truck.title}
+                    </h3>
+                    <p className="mt-3 text-sm leading-relaxed text-black/60 md:text-base">
+                      {truck.description}
+                    </p>
+                  </div>
+                  <div className="flex items-end justify-between gap-4 border-t border-black/10 pt-6">
+                    <p className="font-wide text-5xl leading-none font-extrabold text-brand md:text-6xl">
+                      {truck.hp}
+                      <span className="ml-1 text-lg text-black/40">hp</span>
+                    </p>
+                    <div className="flex flex-wrap justify-end gap-2">
+                      {truck.specs.map((spec) => (
+                        <span
+                          key={spec}
+                          className="rounded-full bg-paper px-3 py-1 font-mono text-xs text-black/65"
+                        >
+                          {spec}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
-            </motion.div>
+            </article>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

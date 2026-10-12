@@ -1,180 +1,294 @@
 "use client";
-import { motion } from "framer-motion";
-import { MapPin } from "lucide-react";
 
-const brasilParadas = [
-  { cidade: "São Paulo", destaque: false },
-  { cidade: "Porto Alegre", destaque: false },
-  { cidade: "Pelotas", destaque: false },
-  { cidade: "Rio Grande", destaque: false },
-  { cidade: "Chuí", destaque: true },
+import { useRef } from "react";
+import Words from "./motion/Words";
+import { gsap, useGSAP, MOTION_OK } from "@/lib/motion";
+
+// Coordenadas proyectadas: x = (lon + 58) · 60, y = (−lat − 22) · 60
+const ROUTE =
+  "M682 93 L524 206 L567 336 L406 482 L340 586 L354 602 L272 701 L220 749 L103 751 L110 774";
+const BORDER = "M272 701 L278 634 L230 592 L148 533 L56 494";
+
+type Stop = {
+  cidade: string;
+  pais: "BR" | "UY";
+  x: number;
+  y: number;
+  lx: number;
+  ly: number;
+  anchor?: "start" | "end";
+  fronteira?: boolean;
+};
+
+const stops: Stop[] = [
+  { cidade: "São Paulo", pais: "BR", x: 682, y: 93, lx: -14, ly: 5, anchor: "end" },
+  { cidade: "Porto Alegre", pais: "BR", x: 406, y: 482, lx: 14, ly: 5 },
+  { cidade: "Pelotas", pais: "BR", x: 340, y: 586, lx: -14, ly: 0, anchor: "end" },
+  { cidade: "Rio Grande", pais: "BR", x: 354, y: 602, lx: 14, ly: 12 },
+  { cidade: "Chuí / Chuy", pais: "BR", x: 272, y: 701, lx: 16, ly: 5, fronteira: true },
+  { cidade: "Rocha", pais: "UY", x: 220, y: 749, lx: 6, ly: 26 },
+  { cidade: "Canelones", pais: "UY", x: 103, y: 751, lx: 0, ly: -14 },
+  { cidade: "Montevideo", pais: "UY", x: 110, y: 774, lx: 0, ly: 26 },
 ];
 
-const uruguaiParadas = [
-  { cidade: "Chuy", destaque: true },
-  { cidade: "Rocha", destaque: false },
-  { cidade: "Canelones", destaque: false },
-  { cidade: "Montevideo", destaque: false },
-];
+const TOTAL_KM = 2000;
+
+const truckIcon = (
+  <g transform="translate(-12 -12)" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" />
+    <path d="M15 18H9" />
+    <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" />
+    <circle cx="17" cy="18" r="2" />
+    <circle cx="7" cy="18" r="2" />
+  </g>
+);
 
 export default function Rotas() {
+  const root = useRef<HTMLElement>(null);
+  const mapRef = useRef<HTMLDivElement>(null);
+
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add(
+        {
+          motion: MOTION_OK,
+          desktop: "(min-width: 1024px)",
+        },
+        (ctx) => {
+          const { motion, desktop } = ctx.conditions as { motion: boolean; desktop: boolean };
+          const section = root.current;
+          const path = section?.querySelector<SVGPathElement>(".route-line");
+          const truck = section?.querySelector<SVGGElement>(".route-truck");
+          const kmEl = section?.querySelector<HTMLElement>(".route-km");
+          if (!section || !path || !truck || !kmEl) return;
+
+          const len = path.getTotalLength();
+          const svgStops = section.querySelectorAll<SVGGElement>(".stop");
+          const listStops = section.querySelectorAll<HTMLElement>(".stop-item");
+
+          // Distancia de cada parada sobre el recorrido
+          const samples = 600;
+          const stopLen = stops.map((s) => {
+            let best = 0;
+            let bestD = Infinity;
+            for (let i = 0; i <= samples; i++) {
+              const p = path.getPointAtLength((i / samples) * len);
+              const d = (p.x - s.x) ** 2 + (p.y - s.y) ** 2;
+              if (d < bestD) {
+                bestD = d;
+                best = (i / samples) * len;
+              }
+            }
+            return best;
+          });
+
+          const render = (progress: number) => {
+            const at = progress * len;
+            const p = path.getPointAtLength(at);
+            truck.setAttribute("transform", `translate(${p.x} ${p.y})`);
+            path.style.strokeDashoffset = String(len - at);
+            kmEl.textContent = Math.round(progress * TOTAL_KM).toLocaleString("pt-BR");
+            stopLen.forEach((l, i) => {
+              const on = at >= l - 2;
+              svgStops[i]?.classList.toggle("on", on);
+              listStops[i]?.classList.toggle("on", on);
+            });
+          };
+
+          if (!motion) {
+            path.style.strokeDasharray = "none";
+            render(1);
+            return;
+          }
+
+          path.style.strokeDasharray = String(len);
+          const state = { p: 0 };
+          render(0);
+          gsap.to(state, {
+            p: 1,
+            ease: "none",
+            onUpdate: () => render(state.p),
+            scrollTrigger: desktop
+              ? {
+                  trigger: section,
+                  start: "top top",
+                  end: "+=140%",
+                  pin: true,
+                  scrub: 0.8,
+                  anticipatePin: 1,
+                }
+              : {
+                  trigger: mapRef.current,
+                  start: "top 75%",
+                  end: "bottom 25%",
+                  scrub: 0.8,
+                },
+          });
+        },
+      );
+      return () => mm.revert();
+    },
+    { scope: root },
+  );
+
   return (
-    <section id="rotas" className="bg-muted py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Header */}
-        <motion.div
-          className="mb-20"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <p className="mb-4 text-sm font-medium uppercase tracking-widest text-muted-foreground">
+    <section
+      id="rotas"
+      ref={root}
+      className="relative overflow-hidden bg-paper py-24 lg:flex lg:min-h-svh lg:items-center lg:py-16"
+    >
+      <div className="mx-auto grid w-full max-w-7xl gap-12 px-5 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:px-8">
+        <div>
+          <p className="mb-4 flex items-center gap-3 text-xs font-semibold tracking-[0.25em] text-black/50 uppercase">
+            <span className="h-px w-10 bg-brand" />
             Cobertura
           </p>
-          <h2 className="mb-6 max-w-2xl text-3xl font-semibold tracking-tight text-foreground lg:text-5xl">
-            Nossas rotas internacionais
+          <h2
+            data-words
+            className="font-wide text-[clamp(2rem,4.4vw,3.6rem)] leading-[1] font-extrabold tracking-tight text-asphalt"
+          >
+            <Words text="De São Paulo a Montevideo, sem trocar de mãos" />
           </h2>
-          <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Operamos o corredor Brasil–Uruguai há mais de 25 anos, com ponto de
-            base na fronteira em Chuí. Também atendemos rotas para a Argentina.
+          <p data-fade className="mt-6 max-w-lg text-lg leading-relaxed text-black/60">
+            Operamos o corredor Brasil–Uruguai há mais de 25 anos, com base na
+            fronteira de Chuí. A mesma equipe acompanha sua carga do embarque à
+            entrega.
           </p>
-        </motion.div>
 
-        {/* Route visualization */}
-        <motion.div
-          className="overflow-hidden rounded-lg border border-border bg-background"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="grid lg:grid-cols-[1fr_auto_1fr]">
-            {/* Brasil */}
-            <div className="p-8 lg:p-12">
-              <div className="mb-6 flex items-center gap-3">
-                <span className="text-2xl">🇧🇷</span>
-                <h3 className="text-xl font-semibold text-foreground">
-                  Brasil
-                </h3>
-              </div>
-              <div className="relative">
-                <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border" />
-                <div className="space-y-5">
-                  {brasilParadas.map((parada, i) => (
-                    <motion.div
-                      key={i}
-                      className="flex items-center gap-3"
-                      initial={{ opacity: 0, x: -20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: i * 0.08 }}
-                    >
-                      <div
-                        className={`relative z-10 flex h-[15px] w-[15px] flex-shrink-0 items-center justify-center rounded-full border-2 ${
-                          parada.destaque
-                            ? "border-foreground bg-foreground"
-                            : "border-border bg-background"
-                        }`}
-                      />
-                      <span
-                        className={`text-sm ${
-                          parada.destaque
-                            ? "font-semibold text-foreground"
-                            : "text-muted-foreground"
-                        }`}
+          <div className="mt-10 grid grid-cols-2 gap-8">
+            {(["BR", "UY"] as const).map((pais) => (
+              <div key={pais}>
+                <p className="mb-4 text-xs font-bold tracking-[0.2em] text-black/45 uppercase">
+                  {pais === "BR" ? "Brasil" : "Uruguai"}
+                </p>
+                <ul className="space-y-3">
+                  {stops.map((s, i) =>
+                    s.pais === pais ? (
+                      <li
+                        key={s.cidade}
+                        data-index={i}
+                        className="stop-item flex items-center gap-3 text-sm text-black/45"
                       >
-                        {parada.cidade}
-                        {parada.destaque && (
-                          <span className="ml-2 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
-                            fronteira
-                          </span>
-                        )}
-                      </span>
-                    </motion.div>
-                  ))}
-                </div>
+                        <span className="dot h-2.5 w-2.5 shrink-0 rounded-full bg-black/20" />
+                        <span>
+                          {s.cidade}
+                          {s.fronteira && (
+                            <span className="ml-2 rounded-full bg-brand/10 px-2 py-0.5 text-[11px] font-semibold text-brand">
+                              fronteira
+                            </span>
+                          )}
+                        </span>
+                      </li>
+                    ) : null,
+                  )}
+                </ul>
               </div>
-            </div>
-
-            {/* Divider / Border crossing */}
-            <div className="flex items-center justify-center border-x border-border px-6 py-8 lg:py-0">
-              <motion.div
-                className="flex flex-col items-center gap-3"
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-              >
-                <div className="rounded-full bg-foreground p-3">
-                  <MapPin className="h-5 w-5 text-background" />
-                </div>
-                <span className="text-center text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                  Fronteira
-                  <br />
-                  Internacional
-                </span>
-              </motion.div>
-            </div>
-
-            {/* Uruguai */}
-            <div className="p-8 lg:p-12">
-              <div className="mb-6 flex items-center gap-3">
-                <span className="text-2xl">🇺🇾</span>
-                <h3 className="text-xl font-semibold text-foreground">
-                  Uruguai
-                </h3>
-              </div>
-              <div className="relative">
-                <div className="absolute left-[7px] top-2 bottom-2 w-px bg-border" />
-                <div className="space-y-5">
-                  {uruguaiParadas.map((parada, i) => (
-                    <motion.div
-                      key={i}
-                      className="flex items-center gap-3"
-                      initial={{ opacity: 0, x: 20 }}
-                      whileInView={{ opacity: 1, x: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.4, delay: i * 0.08 }}
-                    >
-                      <div
-                        className={`relative z-10 flex h-[15px] w-[15px] flex-shrink-0 items-center justify-center rounded-full border-2 ${
-                          parada.destaque
-                            ? "border-foreground bg-foreground"
-                            : "border-border bg-background"
-                        }`}
-                      />
-                      <span
-                        className={`text-sm ${
-                          parada.destaque
-                            ? "font-semibold text-foreground"
-                            : "text-muted-foreground"
-                        }`}
-                      >
-                        {parada.cidade}
-                        {parada.destaque && (
-                          <span className="ml-2 rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground">
-                            fronteira
-                          </span>
-                        )}
-                      </span>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
 
-          {/* Bottom bar */}
-          <div className="border-t border-border bg-muted px-8 py-4 lg:px-12">
-            <p className="text-sm text-muted-foreground">
-              <span className="font-medium text-foreground">
-                Também atendemos Argentina
-              </span>{" "}
-              — Rotas para Buenos Aires e outras províncias mediante consulta.
+          <p className="mt-10 border-t border-black/10 pt-6 text-sm text-black/60">
+            <strong className="text-asphalt">Também atendemos a Argentina.</strong>{" "}
+            Rotas para Buenos Aires e outras províncias mediante consulta.
+          </p>
+        </div>
+
+        <div
+          ref={mapRef}
+          className="relative mx-auto w-full max-w-[560px] rounded-3xl bg-white p-4 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.25)] ring-1 ring-black/5 md:p-6"
+        >
+          <div className="absolute top-5 left-5 z-10 md:top-7 md:left-7">
+            <p className="text-[11px] font-semibold tracking-[0.18em] text-black/45 uppercase">
+              Distância aprox.
+            </p>
+            <p className="font-wide text-3xl font-extrabold text-asphalt tabular-nums md:text-4xl">
+              <span className="route-km">2.000</span>
+              <span className="ml-1 text-base text-black/45">km</span>
             </p>
           </div>
-        </motion.div>
+
+          <svg
+            viewBox="40 40 720 790"
+            role="img"
+            aria-label="Mapa da rota São Paulo, Porto Alegre, Pelotas, Rio Grande, Chuí, Rocha, Canelones e Montevideo"
+            className="h-auto w-full"
+          >
+            {/* Grade de latitude e longitude */}
+            <g stroke="rgba(0,0,0,0.06)" strokeWidth="1">
+              {[120, 360, 600].map((y) => (
+                <line key={y} x1="40" x2="760" y1={y} y2={y} />
+              ))}
+              {[240, 480].map((x) => (
+                <line key={x} y1="40" y2="830" x1={x} x2={x} />
+              ))}
+            </g>
+            <g fill="rgba(0,0,0,0.3)" fontSize="13" fontFamily="var(--font-geist-mono)">
+              <text x="748" y="114" textAnchor="end">24°S</text>
+              <text x="748" y="354" textAnchor="end">28°S</text>
+              <text x="748" y="594" textAnchor="end">32°S</text>
+              <text x="486" y="822">50°O</text>
+              <text x="246" y="822">54°O</text>
+            </g>
+
+            {/* Países */}
+            <g
+              fill="rgba(0,0,0,0.08)"
+              fontWeight="800"
+              style={{ fontStretch: "125%", letterSpacing: "0.04em" }}
+            >
+              <text x="450" y="730" fontSize="44">BRASIL</text>
+              <text x="58" y="672" fontSize="30">URUGUAI</text>
+            </g>
+            <path
+              d={BORDER}
+              fill="none"
+              stroke="rgba(0,0,0,0.25)"
+              strokeWidth="1.5"
+              strokeDasharray="4 6"
+            />
+
+            {/* Recorrido */}
+            <path
+              d={ROUTE}
+              fill="none"
+              stroke="rgba(0,0,0,0.1)"
+              strokeWidth="6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+            <path
+              className="route-line"
+              d={ROUTE}
+              fill="none"
+              stroke="var(--brand)"
+              strokeWidth="6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+
+            {stops.map((s) => (
+              <g key={s.cidade} className="stop on">
+                <circle className="stop-dot" cx={s.x} cy={s.y} r="7" fill="#c9c9c9" stroke="#fff" strokeWidth="3" />
+                <text
+                  className="stop-label"
+                  x={s.x + s.lx}
+                  y={s.y + s.ly}
+                  textAnchor={s.anchor ?? "start"}
+                  fontSize="21"
+                  fill="rgba(0,0,0,0.45)"
+                >
+                  {s.cidade}
+                </text>
+              </g>
+            ))}
+
+            <g className="route-truck" transform="translate(110 774)">
+              <circle r="20" fill="var(--brand)" />
+              <circle r="20" fill="none" stroke="var(--brand)" strokeOpacity="0.25" strokeWidth="10" />
+              {truckIcon}
+            </g>
+          </svg>
+        </div>
       </div>
     </section>
   );

@@ -1,161 +1,122 @@
-"use client";
-import { Shield, Clock, Users, Package, Truck } from "lucide-react";
-import carga from "@/public/carga2.webp";
 import Image from "next/image";
-import { motion, Variants } from "framer-motion";
+import { Shield, Clock, Users, Package, FlaskConical } from "lucide-react";
+import carga from "@/public/carga2.webp";
+import Words from "./motion/Words";
 
 const services = [
   {
-    title: "Segurança Garantida",
+    title: "Segurança garantida",
     description:
-      "Todas as cargas viajam com seguros completos e rastreamento em tempo real.",
+      "Todas as cargas viajam com seguro completo e rastreamento em tempo real.",
     icon: Shield,
   },
   {
     title: "Pontualidade",
     description:
-      "Cumprimos prazos acordados graças à experiência em rotas internacionais.",
+      "Cumprimos os prazos combinados graças à experiência de décadas nas rotas internacionais.",
     icon: Clock,
   },
   {
-    title: "Atendimento Personalizado",
+    title: "Atendimento personalizado",
     description:
-      "Empresa familiar com atendimento direto e personalizado a cada cliente.",
+      "Empresa familiar: cada cliente fala com quem conhece a operação de ponta a ponta.",
     icon: Users,
   },
 ];
 
 const cargaItems = [
   {
-    title: "Cargas Secas",
-    description: "Mercadoria paletizada, caixas, equipamentos industriais e produtos embalados",
+    title: "Cargas secas",
+    description:
+      "Mercadoria paletizada, caixas, equipamentos industriais e produtos embalados.",
     icon: Package,
   },
   {
     title: "Químicos",
-    description: "Transporte especializado de produtos químicos com toda a documentação e segurança exigidas",
-    icon: Truck,
+    description:
+      "Transporte especializado de produtos químicos, com toda a documentação e segurança exigidas.",
+    icon: FlaskConical,
   },
 ];
 
 export default function Servicios() {
-  const fadeInUp : Variants = {
-    initial: { opacity: 0, y: 40 },
-    animate: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
-  };
-
-  const staggerContainer = {
-    animate: {
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
-  };
-
   return (
-    <section id="servicos" className="bg-muted py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Header */}
-        <motion.div
-          className="mb-20"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <p className="mb-4 text-sm font-medium uppercase tracking-widest text-muted-foreground">
-            Nossos Serviços
+    <section id="servicos" className="bg-white py-24 lg:py-36">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <div className="mb-16 max-w-3xl lg:mb-24">
+          <p className="mb-4 flex items-center gap-3 text-xs font-semibold tracking-[0.25em] text-black/50 uppercase">
+            <span className="h-px w-10 bg-brand" />
+            Nossos serviços
           </p>
-          <h2 className="mb-6 max-w-2xl text-3xl font-semibold tracking-tight text-foreground lg:text-5xl">
-            Transportamos todo tipo de carga internacional
+          <h2
+            data-words
+            className="font-wide text-[clamp(2rem,4.4vw,3.6rem)] leading-[1] font-extrabold tracking-tight text-asphalt"
+          >
+            <Words text="Transportamos todo tipo de carga internacional" />
           </h2>
-          <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            Com compromisso, experiência e segurança que nos caracterizam há
-            mais de duas décadas.
+          <p data-fade className="mt-6 max-w-2xl text-lg leading-relaxed text-black/60">
+            Com o compromisso, a experiência e a segurança que nos caracterizam
+            há mais de duas décadas.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Services Grid */}
-        <motion.div
-          className="mb-24 grid gap-6 md:grid-cols-3"
-          initial="initial"
-          whileInView="animate"
-          viewport={{ once: true }}
-          variants={staggerContainer}
-        >
-          {services.map((service, index) => (
-            <motion.div
-              key={index}
-              variants={fadeInUp}
-              className="group"
+        <div data-stagger className="mb-20 grid gap-px overflow-hidden rounded-2xl bg-black/10 md:grid-cols-3">
+          {services.map((service) => (
+            <div
+              key={service.title}
+              className="group relative bg-white p-8 transition-colors duration-500 hover:bg-asphalt lg:p-10"
             >
-              <div className="h-full rounded-lg border border-border bg-background p-8 transition-all duration-300 hover:border-foreground">
-                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-full bg-muted transition-colors group-hover:bg-foreground">
-                  <service.icon className="h-6 w-6 text-foreground transition-colors group-hover:text-background" />
-                </div>
-                <h3 className="mb-3 text-lg font-semibold text-foreground">
-                  {service.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-muted-foreground">
-                  {service.description}
-                </p>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Cargo Types Section */}
-        <motion.div
-          className="overflow-hidden rounded-lg border border-border bg-background"
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <div className="grid lg:grid-cols-2">
-            <div className="p-8 lg:p-12">
-              <h3 className="mb-8 text-2xl font-semibold text-foreground lg:text-3xl">
-                Todo Tipo de Cargas
+              <service.icon className="h-8 w-8 text-brand transition-colors duration-500 group-hover:text-brand-bright" />
+              <h3 className="font-wide mt-8 text-xl font-extrabold text-asphalt transition-colors duration-500 group-hover:text-white">
+                {service.title}
               </h3>
-              <div className="space-y-6">
-                {cargaItems.map((cargo, index) => (
-                  <motion.div
-                    key={index}
-                    className="flex items-start gap-4"
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.1 }}
-                  >
-                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-muted">
-                      <cargo.icon className="h-5 w-5 text-foreground" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-foreground">
-                        {cargo.title}
-                      </h4>
-                      <p className="text-sm text-muted-foreground">
-                        {cargo.description}
-                      </p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
+              <p className="mt-3 text-sm leading-relaxed text-black/60 transition-colors duration-500 group-hover:text-white/65">
+                {service.description}
+              </p>
             </div>
-            <div className="relative h-64 lg:h-auto">
-              <Image
-                src={carga}
-                alt="Servicios de carga"
-                fill
-                className="object-cover"
-              />
+          ))}
+        </div>
+
+        <div className="grid overflow-hidden rounded-2xl bg-paper lg:grid-cols-2">
+          <div className="p-8 lg:p-14">
+            <h3
+              data-words
+              className="font-wide text-3xl font-extrabold tracking-tight text-asphalt lg:text-4xl"
+            >
+              <Words text="O que levamos" />
+            </h3>
+            <div data-stagger className="mt-10 space-y-8">
+              {cargaItems.map((cargo) => (
+                <div key={cargo.title} className="flex items-start gap-5">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-brand text-white">
+                    <cargo.icon className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-bold text-asphalt">{cargo.title}</h4>
+                    <p className="mt-1 text-sm leading-relaxed text-black/60">
+                      {cargo.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
+            <a
+              href="#contato"
+              className="mt-10 inline-flex items-center gap-2 font-semibold text-brand underline-offset-4 hover:underline"
+            >
+              Consultar outro tipo de carga →
+            </a>
           </div>
-        </motion.div>
+          <div data-clip className="relative h-72 overflow-hidden lg:h-auto">
+            <Image
+              src={carga}
+              alt="Carga paletizada e amarrada dentro do sider"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </div>
+        </div>
       </div>
     </section>
   );
