@@ -4,10 +4,11 @@ import { useRef } from "react";
 import Words from "./motion/Words";
 import { gsap, useGSAP, MOTION_OK } from "@/lib/motion";
 
-// Coordenadas proyectadas: x = (lon + 58) · 60, y = (−lat − 22) · 60
+// Mapa ilustrativo: respeta la dirección del recorrido pero no la escala,
+// así el tramo uruguayo no queda aplastado frente al brasileño.
 const ROUTE =
-  "M682 93 L524 206 L567 336 L406 482 L340 586 L354 602 L272 701 L220 749 L103 751 L110 774";
-const BORDER = "M272 701 L278 634 L230 592 L148 533 L56 494";
+  "M610 100 L530 215 L440 330 L360 465 L300 585 L262 665 L175 730 L80 742";
+const BORDER = "M300 585 L285 520 L215 470 L120 430 L20 405";
 
 type Stop = {
   cidade: string;
@@ -16,19 +17,18 @@ type Stop = {
   y: number;
   lx: number;
   ly: number;
-  anchor?: "start" | "end";
+  anchor?: "start" | "middle" | "end";
   fronteira?: boolean;
 };
 
 const stops: Stop[] = [
-  { cidade: "São Paulo", pais: "BR", x: 682, y: 93, lx: -14, ly: 5, anchor: "end" },
-  { cidade: "Porto Alegre", pais: "BR", x: 406, y: 482, lx: 14, ly: 5 },
-  { cidade: "Pelotas", pais: "BR", x: 340, y: 586, lx: -14, ly: 0, anchor: "end" },
-  { cidade: "Rio Grande", pais: "BR", x: 354, y: 602, lx: 14, ly: 12 },
-  { cidade: "Chuí / Chuy", pais: "BR", x: 272, y: 701, lx: 16, ly: 5, fronteira: true },
-  { cidade: "Rocha", pais: "UY", x: 220, y: 749, lx: 6, ly: 26 },
-  { cidade: "Canelones", pais: "UY", x: 103, y: 751, lx: 0, ly: -14 },
-  { cidade: "Montevideo", pais: "UY", x: 110, y: 774, lx: 0, ly: 26 },
+  { cidade: "São Paulo", pais: "BR", x: 610, y: 100, lx: -16, ly: 6, anchor: "end" },
+  { cidade: "Porto Alegre", pais: "BR", x: 440, y: 330, lx: 16, ly: 6 },
+  { cidade: "Pelotas", pais: "BR", x: 360, y: 465, lx: 16, ly: 6 },
+  { cidade: "Chuí / Chuy", pais: "BR", x: 300, y: 585, lx: 16, ly: 6, fronteira: true },
+  { cidade: "Rocha", pais: "UY", x: 262, y: 665, lx: 16, ly: 6 },
+  { cidade: "Canelones", pais: "UY", x: 175, y: 730, lx: 0, ly: 34, anchor: "middle" },
+  { cidade: "Montevideo", pais: "UY", x: 80, y: 742, lx: 0, ly: -20, anchor: "middle" },
 ];
 
 const TOTAL_KM = 2000;
@@ -203,36 +203,19 @@ export default function Rotas() {
           </div>
 
           <svg
-            viewBox="40 40 720 790"
+            viewBox="0 40 700 760"
             role="img"
-            aria-label="Mapa da rota São Paulo, Porto Alegre, Pelotas, Rio Grande, Chuí, Rocha, Canelones e Montevideo"
+            aria-label="Mapa ilustrativo da rota São Paulo, Porto Alegre, Pelotas, Chuí, Rocha, Canelones e Montevideo"
             className="h-auto w-full"
           >
-            {/* Grade de latitude e longitude */}
-            <g stroke="rgba(0,0,0,0.06)" strokeWidth="1">
-              {[120, 360, 600].map((y) => (
-                <line key={y} x1="40" x2="760" y1={y} y2={y} />
-              ))}
-              {[240, 480].map((x) => (
-                <line key={x} y1="40" y2="830" x1={x} x2={x} />
-              ))}
-            </g>
-            <g fill="rgba(0,0,0,0.3)" fontSize="13" fontFamily="var(--font-geist-mono)">
-              <text x="748" y="114" textAnchor="end">24°S</text>
-              <text x="748" y="354" textAnchor="end">28°S</text>
-              <text x="748" y="594" textAnchor="end">32°S</text>
-              <text x="486" y="822">50°O</text>
-              <text x="246" y="822">54°O</text>
-            </g>
-
             {/* Países */}
             <g
               fill="rgba(0,0,0,0.08)"
               fontWeight="800"
               style={{ fontStretch: "125%", letterSpacing: "0.04em" }}
             >
-              <text x="450" y="730" fontSize="44">BRASIL</text>
-              <text x="58" y="672" fontSize="30">URUGUAI</text>
+              <text x="400" y="560" fontSize="44">BRASIL</text>
+              <text x="24" y="625" fontSize="36">URUGUAI</text>
             </g>
             <path
               d={BORDER}
@@ -277,7 +260,18 @@ export default function Rotas() {
               </g>
             ))}
 
-            <g className="route-truck" transform="translate(110 774)">
+            <text
+              x="690"
+              y="790"
+              textAnchor="end"
+              fontSize="14"
+              fill="rgba(0,0,0,0.35)"
+              fontFamily="var(--font-geist-mono)"
+            >
+              Mapa ilustrativo, fora de escala
+            </text>
+
+            <g className="route-truck" transform="translate(80 742)">
               <circle r="20" fill="var(--brand)" />
               <circle r="20" fill="none" stroke="var(--brand)" strokeOpacity="0.25" strokeWidth="10" />
               {truckIcon}
