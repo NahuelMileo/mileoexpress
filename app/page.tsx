@@ -29,9 +29,9 @@ const dadosEstruturados = {
       foundingDate: "2000",
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Chuy",
-        addressRegion: "Rocha",
-        addressCountry: "UY",
+        addressLocality: "Chuí",
+        addressRegion: "RS",
+        addressCountry: "BR",
       },
       areaServed: [
         { "@type": "Country", name: "Brasil" },

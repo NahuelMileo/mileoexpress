@@ -14,7 +14,7 @@ export const perguntas = [
   {
     pergunta: "Por onde a carga cruza a fronteira entre Brasil e Uruguai?",
     resposta:
-      "Pela fronteira de Chuí e Chuy, onde fica a nossa base. Operamos esse corredor desde 2000 e conhecemos de perto os processos aduaneiros dos dois países.",
+      "Pela fronteira de Chuí e Chuy. Nossa base fica em Chuí, no Rio Grande do Sul. Operamos esse corredor desde 2000 e conhecemos de perto os processos aduaneiros dos dois países.",
   },
   {
     pergunta: "A carga viaja com seguro e rastreamento?",
