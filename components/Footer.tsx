@@ -1,86 +1,60 @@
-"use client";
-import { motion } from "framer-motion";
-import Link from "next/link";
+import type { Dict } from "@/lib/content";
+import { CNPJ, EMAIL, LEGAL_NAME, WHATSAPP, whatsappLink } from "@/lib/empresa";
 
-export default function Footer() {
-  const links = [
-    { href: "#inicio", text: "Início" },
-    { href: "#sobre-nos", text: "Nossa História" },
-    { href: "#servicos", text: "Serviços" },
-    { href: "#frota", text: "Frota" },
-    { href: "#contato", text: "Contato" },
-  ];
-
-  const contacto = [
-    { info: "+55 53 99133 8841" },
-    { info: "contato@mileoexpress.com" },
-    { info: "Chuí, RS – Brasil" },
-  ];
-
+export default function Footer({ t }: { t: Dict }) {
   return (
-    <motion.footer
-      className="border-t border-border bg-background py-16"
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6 }}
-    >
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="grid gap-12 md:grid-cols-3">
-          {/* Brand */}
-          <div>
-            <Link href="#inicio">
-              <span className="text-xl font-semibold tracking-tight text-foreground">
-                Mileo Express
-              </span>
-            </Link>
-            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              Transporte internacional confiável entre Brasil e Uruguai. Uma
-              empresa familiar com mais de 25 anos de experiência.
-            </p>
-          </div>
-
-          {/* Links */}
-          <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-widest text-foreground">
-              Navegação
-            </h4>
-            <div className="space-y-3">
-              {links.map((link, index) => (
-                <Link
-                  key={index}
-                  href={link.href}
-                  className="block text-sm text-muted-foreground transition-colors hover:text-foreground"
-                >
-                  {link.text}
-                </Link>
-              ))}
-            </div>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h4 className="mb-4 text-sm font-semibold uppercase tracking-widest text-foreground">
-              Contato
-            </h4>
-            <div className="space-y-3">
-              {contacto.map((contact, index) => (
-                <p key={index} className="text-sm text-muted-foreground">
-                  {contact.info}
-                </p>
-              ))}
-            </div>
-          </div>
+    <footer className="on-dark bg-grafite pt-16 pb-28 text-suave md:pb-10">
+      <div className="mx-auto grid max-w-6xl gap-12 px-4 sm:px-6 md:grid-cols-[1.4fr_1fr_1fr]">
+        <div>
+          {/* eslint-disable-next-line @next/next/no-img-element -- SVG vectorial del manual */}
+          <img src="/brand/lockup-dark.svg" alt="Mileo Express" width={782} height={196} className="h-8 w-auto" />
+          <p className="mt-5 max-w-xs text-sm leading-relaxed text-suave/65">{t.footer.tagline}</p>
         </div>
-
-        {/* Bottom */}
-        <div className="mt-12 border-t border-border pt-8">
-          <p className="text-center text-sm text-muted-foreground">
-            {new Date().getFullYear()} Mileo Express. Todos os direitos
-            reservados.
-          </p>
+        <nav aria-label={t.footer.navTitle}>
+          <p className="mb-4 text-sm text-suave/50">{t.footer.navTitle}</p>
+          <ul className="space-y-2.5 text-sm">
+            {t.nav.links.map((l) => (
+              <li key={l.href}>
+                <a href={l.href} className="text-suave/80 hover:text-suave">
+                  {l.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div>
+          <p className="mb-4 text-sm text-suave/50">{t.footer.contactTitle}</p>
+          <ul className="space-y-2.5 text-sm text-suave/80">
+            {(["br", "uy"] as const).map((country) => (
+              <li key={country}>
+                <a
+                  href={whatsappLink(country, t.whatsappDefault)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  data-track={`whatsapp_footer_${country}`}
+                  className="hover:text-suave"
+                >
+                  {WHATSAPP[country].display}
+                </a>
+              </li>
+            ))}
+            <li>
+              <a href={`mailto:${EMAIL}`} className="hover:text-suave">
+                {EMAIL}
+              </a>
+            </li>
+            <li>Chuí, RS – Brasil</li>
+          </ul>
         </div>
       </div>
-    </motion.footer>
+      <div className="mx-auto mt-14 flex max-w-6xl flex-col gap-1 border-t border-suave/10 px-4 pt-6 text-xs text-suave/45 sm:flex-row sm:justify-between sm:px-6">
+        <p>
+          {LEGAL_NAME} · CNPJ {CNPJ}
+        </p>
+        <p>
+          © {new Date().getFullYear()} Mileo Express. {t.footer.rights}
+        </p>
+      </div>
+    </footer>
   );
 }

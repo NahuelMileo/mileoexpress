@@ -1,36 +1,35 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mileo Express
 
-## Getting Started
+Sitio de Mileo Express, transporte rodoviário internacional de cargas entre São Paulo y Montevideo. Next.js 15 + Tailwind 4, desplegado en Vercel desde `main`.
 
-First, run the development server:
+## Desarrollo
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev     # http://localhost:3000
+npm run lint
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Estructura
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `app/(pt)` y `app/(es)/es`: portugués en `/` y español en `/es`, cada uno con su layout (idioma, metadata y datos estructurados).
+- `components/Landing.tsx`: arma la página con las secciones de `components/`.
+- `lib/empresa.ts`: **datos de la empresa** (WhatsApp de Brasil y Uruguay, email, razón social, CNPJ, datos operativos). Si cambia un número o un dato, se cambia acá.
+- `lib/content.ts`: todos los textos en PT y ES, la flota y las paradas del mapa.
+- `lib/site.tsx`: metadata, hreflang, Open Graph y JSON-LD (LocalBusiness + FAQPage).
+- `public/brand`: logo y símbolo del manual de identidad de Bayou Estúdio (2026). Colores: vinho `#7C0F0F`, grafite `#353535`, branco suave `#F2F0EF`; tipografía Sora.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Movimiento y accesibilidad
 
-## Learn More
+- El hero entra con una animación CSS y se ve completo sin JavaScript.
+- El resto de las animaciones (`components/Motion.tsx`) solo se activan con JS y sin `prefers-reduced-motion`; sin eso, todo el contenido queda visible.
 
-To learn more about Next.js, take a look at the following resources:
+## Medición
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Vercel Analytics (`@vercel/analytics`). Eventos:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- `cotacao_whatsapp` y `cotacao_email`: envío del formulario de cotización.
+- Los clics en enlaces con `data-track` (botones de WhatsApp del header, hero, contacto, footer y barra del celular).
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Hay que activar Web Analytics en el proyecto de Vercel para ver los datos.

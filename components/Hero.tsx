@@ -1,138 +1,90 @@
-"use client";
-
-import { ArrowRight } from "lucide-react";
-import { Button } from "./ui/button";
 import Image from "next/image";
-import hero from "@/public/hero.webp";
-import { motion } from "framer-motion";
+import type { CSSProperties } from "react";
+import type { Dict } from "@/lib/content";
+import { whatsappLink } from "@/lib/empresa";
+import { ArrowIcon, ChatIcon } from "./icons";
 
-export default function Hero() {
-  const fadeInUp = {
-    initial: { opacity: 0, y: 40 },
-    animate: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: "easeOut" as const },
-    },
-  };
-
-  const staggerContainer = {
-    animate: {
-      transition: {
-        staggerChildren: 0.15,
-        delayChildren: 0.3,
-      },
-    },
-  };
-
-  const stats = [
-    { number: "25+", label: "Anos de Experiência" },
-    { number: "4", label: "Caminhões na Frota" },
-    { number: "+50k", label: "Toneladas Transportadas" },
-  ];
-
+/**
+ * La primera pantalla no depende de JS: entra con una animación CSS al cargar
+ * (desactivada con prefers-reduced-motion) y el botón se ve desde el primer pintado.
+ */
+export default function Hero({ t }: { t: Dict }) {
   return (
-    <section id="inicio" className="relative min-h-screen overflow-hidden">
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0">
-        <Image
-          src={hero}
-          alt="Caminhão Volvo FH da Mileo Express à noite, na rota Brasil–Uruguai"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/40" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 flex min-h-screen items-center">
-        <div className="container mx-auto px-6 lg:px-12">
-          <motion.div
-            className="max-w-3xl space-y-6"
-            initial="initial"
-            animate="animate"
-            variants={staggerContainer}
+    <section className="mx-auto max-w-6xl px-4 pt-10 sm:px-6 lg:pt-16">
+      <div className="grid items-center gap-10 lg:grid-cols-[1.2fr_1fr] lg:gap-12">
+        <div>
+          <p className="hero-in mb-6 text-sm font-medium text-vinho">{t.hero.eyebrow}</p>
+          <h1 className="text-[2.2rem] leading-[1.08] font-semibold tracking-tight text-balance sm:text-5xl lg:text-[3.35rem]">
+            {t.hero.title.map((line, i) => (
+              <span
+                key={i}
+                className={`hero-in block ${i === 1 ? "text-vinho" : ""}`}
+                style={{ "--d": i + 1 } as CSSProperties}
+              >
+                {line}
+              </span>
+            ))}
+          </h1>
+          <p
+            className="hero-in mt-6 max-w-xl text-lg leading-relaxed text-muted"
+            style={{ "--d": 4 } as CSSProperties}
           >
-            {/* Small Text Above Heading */}
-            <motion.p
-              className="text-sm font-medium tracking-widest text-white/60 uppercase"
-              variants={fadeInUp}
+            {t.hero.lead}
+          </p>
+          <div className="hero-in mt-9 flex flex-col gap-3 sm:flex-row" style={{ "--d": 5 } as CSSProperties}>
+            <a
+              href="#contato"
+              className="group inline-flex items-center justify-center gap-2 rounded-full bg-vinho px-7 py-3.5 text-center font-medium text-suave transition-colors hover:bg-vinho-hover"
             >
-              Transporte internacional de cargas · Brasil · Uruguai
-            </motion.p>
-
-            {/* Main Heading */}
-            <motion.h1
-              className="text-5xl leading-[1.1] font-light tracking-tight text-white md:text-6xl lg:text-7xl"
-              variants={fadeInUp}
+              {t.hero.cta}
+              <ArrowIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            </a>
+            <a
+              href={whatsappLink(t.country, t.whatsappDefault)}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-track="whatsapp_hero"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-grafite/25 px-7 py-3.5 font-medium transition-colors hover:border-grafite"
             >
-              Conectando Brasil{" "}
-              <span className="font-serif italic">e Uruguai</span>{" "}
-              desde 2000
-            </motion.h1>
+              <ChatIcon className="h-5 w-5" />
+              {t.hero.secondary}
+            </a>
+          </div>
+        </div>
 
-            {/* Subheading */}
-            <motion.p
-              className="max-w-xl text-lg leading-relaxed text-white/70 md:text-xl"
-              variants={fadeInUp}
-            >
-              Empresa familiar especializada na rota São Paulo–Montevidéu, nos dois sentidos.
-              Atendimento direto com os donos, sem intermediários, com mais de
-              25 anos de experiência comprovada.
-            </motion.p>
-
-            {/* CTA Buttons - Lower position with full round */}
-            <motion.div
-              className="flex flex-col gap-4 pt-8 sm:flex-row"
-              variants={fadeInUp}
-            >
-              <a href="#contato">
-                <Button
-                  size="lg"
-                  className="group rounded-full bg-white px-8 py-6 text-base font-medium text-black transition-all hover:bg-white/90"
-                >
-                  Solicitar Orçamento
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </a>
-              <a href="#sobre-nos">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="rounded-full border-white/30 bg-transparent px-8 py-6 text-base font-medium text-white transition-all hover:border-white hover:bg-white hover:text-black"
-                >
-                  Conheça Nossa História
-                </Button>
-              </a>
-            </motion.div>
-
-            {/* Divider */}
-            <motion.div variants={fadeInUp} className="pt-8">
-              <hr className="border-white/20" />
-            </motion.div>
-
-            {/* Stats Section */}
-            <motion.div
-              className="flex flex-wrap gap-36 pt-6"
-              variants={fadeInUp}
-            >
-              {stats.map((stat, index) => (
-                <div key={index} className="flex flex-col">
-                  <span className="text-4xl font-bold text-white md:text-5xl">
-                    {stat.number}
-                  </span>
-                  <span className="mt-1 text-xs font-medium tracking-wide text-white/50 uppercase">
-                    {stat.label}
-                  </span>
-                </div>
-              ))}
-            </motion.div>
-          </motion.div>
+        {/* Recorte diagonal: retoma el ángulo de las franjas del símbolo */}
+        <div
+          className="hero-in relative aspect-[4/3] overflow-hidden [clip-path:polygon(14%_0,100%_0,100%_100%,0_100%)] lg:aspect-[5/6] lg:[clip-path:polygon(28%_0,100%_0,100%_100%,0_100%)]"
+          style={{ "--d": 2 } as CSSProperties}
+        >
+          <Image
+            src="/palmeira.webp"
+            alt={t.hero.imageAlt}
+            fill
+            priority
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            className="object-cover object-[20%_70%] lg:object-[22%_70%]"
+          />
         </div>
       </div>
 
+      <dl className="mt-14 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-linha pt-8 md:grid-cols-4 lg:mt-20">
+        {t.hero.stats.map((s, i) => (
+          <div key={i} className="hero-in flex flex-col-reverse" style={{ "--d": 6 + i } as CSSProperties}>
+            <dt className="mt-1 text-sm text-muted">{s.label}</dt>
+            <dd className="text-3xl font-semibold tracking-tight tabular-nums lg:text-4xl">
+              {"count" in s ? (
+                <>
+                  {s.count}
+                  {"suffix" in s && s.suffix}
+                </>
+              ) : (
+                s.value
+              )}
+            </dd>
+          </div>
+        ))}
+      </dl>
     </section>
   );
 }
