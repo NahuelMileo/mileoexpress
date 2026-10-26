@@ -149,7 +149,7 @@ export default function Servicios() {
             <div className="relative h-64 lg:h-auto">
               <Image
                 src={carga}
-                alt="Servicios de carga"
+                alt="Carregamento de carga em caminhão da Mileo Express"
                 fill
                 className="object-cover"
               />

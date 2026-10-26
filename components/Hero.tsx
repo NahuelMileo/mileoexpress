@@ -37,7 +37,7 @@ export default function Hero() {
       <div className="absolute inset-0">
         <Image
           src={hero}
-          alt="Transporte Internacional"
+          alt="Caminhão Volvo FH da Mileo Express à noite, na rota Brasil–Uruguai"
           fill
           className="object-cover"
           priority
@@ -60,7 +60,7 @@ export default function Hero() {
               className="text-sm font-medium tracking-widest text-white/60 uppercase"
               variants={fadeInUp}
             >
-              Transporte Internacional Brasil · Uruguai · Argentina
+              Transporte internacional de cargas · Brasil · Uruguai
             </motion.p>
 
             {/* Main Heading */}
@@ -78,7 +78,7 @@ export default function Hero() {
               className="max-w-xl text-lg leading-relaxed text-white/70 md:text-xl"
               variants={fadeInUp}
             >
-              Empresa familiar especializada na rota São Paulo–Montevideo.
+              Empresa familiar especializada na rota São Paulo–Montevidéu, nos dois sentidos.
               Atendimento direto com os donos, sem intermediários, com mais de
               25 anos de experiência comprovada.
             </motion.p>

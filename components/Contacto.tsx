@@ -33,7 +33,7 @@ const contactItems = [
   {
     icon: MapPin,
     title: "Localização",
-    value: "Chui, Uruguai",
+    value: "Chuy, Uruguai",
   },
 ];
 

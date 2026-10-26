@@ -14,7 +14,7 @@ export default function Footer() {
   const contacto = [
     { info: "+55 53 99133 8841" },
     { info: "contato@mileoexpress.com" },
-    { info: "Chui, Uruguay" },
+    { info: "Chuy, Uruguai" },
   ];
 
   return (
