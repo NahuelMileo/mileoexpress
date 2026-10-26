@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { Dict } from "@/lib/content";
 import Title, { Eyebrow } from "./Title";
 
@@ -10,8 +11,8 @@ export default function PerguntasFrequentes({ t }: { t: Dict }) {
       <Title lines={f.title} className="text-3xl leading-tight sm:text-4xl lg:text-5xl" />
 
       <div className="mt-12 divide-y divide-linha border-y border-linha">
-        {f.items.map((item) => (
-          <details key={item.q} className="group py-5">
+        {f.items.map((item, i) => (
+          <details key={item.q} data-reveal style={{ "--d": i } as CSSProperties} className="faq group py-5">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-6 rounded font-semibold [&::-webkit-details-marker]:hidden">
               <h3>{item.q}</h3>
               <svg
@@ -22,12 +23,12 @@ export default function PerguntasFrequentes({ t }: { t: Dict }) {
                 strokeWidth={1.8}
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                className="h-5 w-5 shrink-0 text-muted transition-transform group-open:rotate-180"
+                className="h-5 w-5 shrink-0 text-muted transition-transform duration-300 group-open:rotate-180"
               >
                 <path d="m6 9 6 6 6-6" />
               </svg>
             </summary>
-            <p className="mt-4 leading-relaxed text-muted">{item.a}</p>
+            <p className="faq-answer pt-4 leading-relaxed text-muted">{item.a}</p>
           </details>
         ))}
       </div>
